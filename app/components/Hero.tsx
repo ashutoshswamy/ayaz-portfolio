@@ -44,7 +44,7 @@ export default function Hero() {
         >
           <a
             className="rounded-full bg-[var(--color-emerald)] px-6 py-3 text-sm font-medium text-[var(--color-offwhite)] transition hover:opacity-90 sm:text-base"
-            href="#work"
+            href="#discography"
           >
             Listen to Work
           </a>
