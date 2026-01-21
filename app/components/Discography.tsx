@@ -1,74 +1,96 @@
 "use client";
 
+import { Clock, Disc, Mic, Music, PlayCircle } from "lucide-react";
+
 import { fadeUp, motion, staggerChildren, viewportOnce } from "./Animated";
 
 const works = [
   {
     title: "Mahima Swami Samarth Ki",
-    collaborators: "Usha Mangeshkar / Mohammad Ayaz",
+    artists: "Usha Mangeshkar, Mohammad Ayaz",
     label: "Venus Music",
+    video: "https://www.youtube.com/watch?v=5-jMq60QQyM",
   },
   {
     title: "Jai Guru Jai Guru",
-    collaborators: "Anuradha Paudwal / Mohammad Ayaz",
+    artists: "Anuradha Paudwal, Mohammad Ayaz",
     label: "T-Series",
+    video: "https://www.youtube.com/watch?v=dOj5CFDwLRM",
   },
   {
     title: "Vandhan Majhe Ghyave",
-    collaborators: "Usha Mangeshkar / Mohammad Ayaz",
+    artists: "Usha Mangeshkar, Mohammad Ayaz",
     label: "Zee Music",
+    video: "https://www.youtube.com/watch?v=spaXBEEl_P0",
   },
   {
     title: "Siddharam Gajto",
-    collaborators: "Anuradha Paudwal / Mohammad Ayaz",
+    artists: "Anuradha Paudwal, Mohammad Ayaz",
     label: "Zee Music",
+    video: "https://www.youtube.com/watch?v=dOj5CFDwLRM",
   },
   {
     title: "Namo Namo Deva",
-    collaborators: "Ram Shankar / Mohammad Ayaz",
+    artists: "Ram Shankar, Mohammad Ayaz",
     label: "Zee Music",
+    video: "https://www.youtube.com/watch?v=sV4QukqJN9U",
   },
   {
     title: "Deva Majhe Siddheshwara",
-    collaborators: "Varsha Usgaonkar / Mohammad Ayaz",
+    artists: "Varsha Usgaonkar, Mohammad Ayaz",
     label: "T-Series",
+    video: "https://www.youtube.com/watch?v=gI0MyWCA5Kg",
   },
   {
     title: "Darshan Dya Ishwara",
-    collaborators: "Anup Jalota / Mohammad Ayaz",
+    artists: "Anup Jalota, Mohammad Ayaz",
     label: "Zee Music",
+    video: "https://www.youtube.com/watch?v=dhixnhP2vCE",
   },
   {
     title: "Raytechya Rakshanala Hote Shivaji Raja",
-    collaborators: "",
+    artists: "—",
     label: "T-Series",
+    video: "",
   },
   {
     title: "Udo Udo Ga Amba Bai",
-    collaborators: "",
+    artists: "—",
     label: "T-Series",
+    video: "",
   },
   {
     title: "Bhimraya Kuni Shodhun Dakhwal Ka",
-    collaborators: "",
+    artists: "—",
     label: "T-Series",
+    video: "",
   },
   {
     title: "Shirdi Ke Sai Baba",
-    collaborators: "Bhagayshree Chavan / Mohammad Ayaz",
+    artists: "Bhagayshree Chavan, Mohammad Ayaz",
     label: "T-Series",
+    video: "https://www.youtube.com/watch?v=_GmOp0f0YMQ",
   },
   {
     title: "Utha Siddha Rameshwara",
-    collaborators: "Suresh Wadekar / Mohammad Ayaz",
+    artists: "Suresh Wadekar, Mohammad Ayaz",
     label: "Zee Music",
+    video: "https://www.youtube.com/watch?v=a7WkZ0bjD54",
   },
   {
     title: "Bhakti Shivachi Karto",
-    collaborators: "Sadhana Sargam / Mohammad Ayaz",
-    label: "",
+    artists: "Sadhana Sargam, Mohammad Ayaz",
+    label: "Zee Music",
+    video:
+      "https://www.youtube.com/watch?v=u0hAtfwLPLQ&list=RDu0hAtfwLPLQ&start_radio=1",
   },
 ];
+
+const toEmbedUrl = (url: string) => {
+  if (!url) return "";
+  const id = url.split("v=")[1]?.split("&")[0];
+  return id ? `https://www.youtube.com/embed/${id}` : "";
+};
 
 export default function Discography() {
   return (
@@ -93,32 +115,66 @@ export default function Discography() {
         </motion.div>
         <motion.div
           variants={staggerChildren}
-          className="overflow-hidden rounded-2xl border border-[color:var(--color-emerald)]/10 bg-white/70"
+          className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
         >
-          <div className="grid gap-2 border-b border-[color:var(--color-emerald)]/10 px-6 py-4 text-xs uppercase tracking-[0.3em] text-[var(--color-gold)] sm:grid-cols-[2fr_1.5fr_1fr]">
-            <span>Title</span>
-            <span>Collaborators</span>
-            <span>Label</span>
-          </div>
-          <motion.ul variants={staggerChildren}>
-            {works.map((work) => (
-              <motion.li
+          {works.map((work) => {
+            const embedUrl = toEmbedUrl(work.video);
+            return (
+              <motion.article
                 key={work.title}
                 variants={fadeUp}
-                className="grid gap-3 border-b border-[color:var(--color-emerald)]/10 px-6 py-5 text-sm text-[color:var(--text-dark)]/80 sm:grid-cols-[2fr_1.5fr_1fr] sm:text-base"
+                className="rounded-2xl border border-[color:var(--color-emerald)]/10 bg-white/70 p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-md"
               >
-                <span className="font-semibold text-[color:var(--color-emerald)]">
-                  {work.title}
-                </span>
-                <span className="text-[color:var(--text-dark)]/75">
-                  {work.collaborators || "—"}
-                </span>
-                <span className="text-[color:var(--text-dark)]/70">
-                  {work.label || "—"}
-                </span>
-              </motion.li>
-            ))}
-          </motion.ul>
+                <div className="mb-4 space-y-3">
+                  <div className="flex items-start gap-2">
+                    <Music
+                      className="mt-1 h-4 w-4 text-[var(--color-emerald)]"
+                      aria-hidden="true"
+                    />
+                    <h3 className="text-lg font-semibold text-[color:var(--color-emerald)]">
+                      {work.title}
+                    </h3>
+                  </div>
+                  <div className="flex items-center gap-2 text-sm text-[color:var(--text-dark)]/75">
+                    <Mic
+                      className="h-4 w-4 text-[var(--color-emerald)]"
+                      aria-hidden="true"
+                    />
+                    <span>{work.artists}</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-[var(--color-gold)]">
+                    <Disc
+                      className="h-4 w-4 text-[var(--color-gold)]"
+                      aria-hidden="true"
+                    />
+                    <span>{work.label}</span>
+                  </div>
+                </div>
+                <div className="relative w-full overflow-hidden rounded-xl bg-[var(--color-offwhite)] pt-[56.25%]">
+                  {embedUrl ? (
+                    <>
+                      <div className="absolute left-3 top-3 z-10 flex items-center gap-2 rounded-full bg-[var(--color-offwhite)]/90 px-3 py-1 text-xs uppercase tracking-[0.2em] text-[var(--color-emerald)]">
+                        <PlayCircle className="h-4 w-4" aria-hidden="true" />
+                        Video
+                      </div>
+                      <iframe
+                        className="absolute inset-0 h-full w-full"
+                        src={embedUrl}
+                        title={`YouTube video for ${work.title}`}
+                        loading="lazy"
+                        allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      />
+                    </>
+                  ) : (
+                    <div className="absolute inset-0 flex items-center justify-center gap-2 text-xs uppercase tracking-[0.3em] text-[color:var(--text-dark)]/60">
+                      <Clock className="h-4 w-4" aria-hidden="true" />
+                      Coming Soon
+                    </div>
+                  )}
+                </div>
+              </motion.article>
+            );
+          })}
         </motion.div>
       </div>
     </motion.section>

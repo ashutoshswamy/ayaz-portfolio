@@ -1,5 +1,7 @@
 "use client";
 
+import { Globe, MapPin, Route } from "lucide-react";
+
 import { fadeUp, motion, staggerChildren, viewportOnce } from "./Animated";
 
 const national = ["India"];
@@ -54,24 +56,10 @@ export default function Performances() {
               {national.map((place) => (
                 <div key={place} className="flex items-center gap-3">
                   <span className="flex h-7 w-7 items-center justify-center rounded-full border border-[color:var(--color-emerald)]/30 bg-[var(--color-offwhite)]">
-                    <svg
+                    <MapPin
                       className="h-4 w-4 text-[var(--color-emerald)]"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                    >
-                      <path
-                        d="M12 2a10 10 0 1 0 10 10"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                      <path
-                        d="M2 12h20"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
+                      aria-hidden="true"
+                    />
                   </span>
                   <span className="text-base font-semibold text-[color:var(--color-emerald)]">
                     {place}
@@ -91,24 +79,17 @@ export default function Performances() {
               {international.map((place) => (
                 <div key={place} className="flex items-center gap-3">
                   <span className="flex h-7 w-7 items-center justify-center rounded-full border border-[color:var(--color-emerald)]/30 bg-[var(--color-offwhite)]">
-                    <svg
-                      className="h-4 w-4 text-[var(--color-emerald)]"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                    >
-                      <path
-                        d="M12 2a10 10 0 1 0 10 10"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
+                    {place === "East Africa" ? (
+                      <Route
+                        className="h-4 w-4 text-[var(--color-emerald)]"
+                        aria-hidden="true"
                       />
-                      <path
-                        d="M2 12h20"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
+                    ) : (
+                      <Globe
+                        className="h-4 w-4 text-[var(--color-emerald)]"
+                        aria-hidden="true"
                       />
-                    </svg>
+                    )}
                   </span>
                   <span className="text-base text-[color:var(--text-dark)]/80">
                     {place}

@@ -1,5 +1,7 @@
 "use client";
 
+import { Globe, Medal, Music, Trophy, Tv } from "lucide-react";
+
 import { fadeUp, motion, staggerChildren, viewportOnce } from "./Animated";
 
 const achievements = [
@@ -34,9 +36,17 @@ const achievements = [
   },
   {
     title: "Title song performance for Sony TV (Kiya Hua Tera Wada)",
-    category: "Television",
+    category: "Music",
   },
 ];
+
+const iconMap = {
+  Award: Trophy,
+  Competition: Medal,
+  Television: Tv,
+  Recognition: Globe,
+  Music: Music,
+};
 
 export default function Achievements() {
   return (
@@ -71,20 +81,36 @@ export default function Achievements() {
               variants={fadeUp}
               className="flex flex-col gap-3 px-6 py-6 sm:flex-row sm:items-start sm:justify-between"
             >
-              <div className="flex max-w-3xl flex-col gap-2">
-                <h3 className="text-lg font-semibold text-[color:var(--color-emerald)] sm:text-xl">
-                  {item.title}
-                </h3>
-                {item.detail ? (
-                  <p className="text-sm text-[color:var(--text-dark)]/75 sm:text-base">
-                    {item.detail}
-                  </p>
-                ) : null}
-                {item.authority ? (
-                  <p className="text-sm text-[color:var(--text-dark)]/70 sm:text-base">
-                    {item.authority}
-                  </p>
-                ) : null}
+              <div className="flex max-w-3xl gap-3">
+                <span className="mt-1 inline-flex h-8 w-8 items-center justify-center rounded-full border border-[color:var(--color-emerald)]/20 bg-[color:var(--color-offwhite)]">
+                  {item.category
+                    ? (() => {
+                        const Icon =
+                          iconMap[item.category as keyof typeof iconMap];
+                        return Icon ? (
+                          <Icon
+                            className="h-4 w-4 text-[var(--color-emerald)]"
+                            aria-hidden="true"
+                          />
+                        ) : null;
+                      })()
+                    : null}
+                </span>
+                <div className="flex flex-col gap-2">
+                  <h3 className="text-lg font-semibold text-[color:var(--color-emerald)] sm:text-xl">
+                    {item.title}
+                  </h3>
+                  {item.detail ? (
+                    <p className="text-sm text-[color:var(--text-dark)]/75 sm:text-base">
+                      {item.detail}
+                    </p>
+                  ) : null}
+                  {item.authority ? (
+                    <p className="text-sm text-[color:var(--text-dark)]/70 sm:text-base">
+                      {item.authority}
+                    </p>
+                  ) : null}
+                </div>
               </div>
               <div className="flex flex-wrap gap-2 text-xs uppercase tracking-[0.2em] text-[var(--color-gold)] sm:justify-end">
                 {item.year ? (
