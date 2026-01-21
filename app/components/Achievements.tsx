@@ -71,18 +71,18 @@ export default function Achievements() {
             celebrated performances.
           </p>
         </motion.div>
-        <motion.ul
+        <motion.div
           variants={staggerChildren}
-          className="divide-y divide-[color:var(--color-emerald)]/10 rounded-2xl border border-[color:var(--color-emerald)]/10 bg-white/70"
+          className="grid gap-6 sm:grid-cols-2"
         >
           {achievements.map((item) => (
-            <motion.li
+            <motion.article
               key={item.title}
               variants={fadeUp}
-              className="flex flex-col gap-3 px-6 py-6 sm:flex-row sm:items-start sm:justify-between"
+              className="group rounded-2xl border border-[color:var(--color-emerald)]/10 bg-white/70 p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md"
             >
-              <div className="flex max-w-3xl gap-3">
-                <span className="mt-1 inline-flex h-8 w-8 items-center justify-center rounded-full border border-[color:var(--color-emerald)]/20 bg-[color:var(--color-offwhite)]">
+              <div className="flex items-start gap-3">
+                <span className="mt-1 inline-flex h-9 w-9 items-center justify-center rounded-full border border-[color:var(--color-emerald)]/20 bg-[color:var(--color-offwhite)]">
                   {item.category
                     ? (() => {
                         const Icon =
@@ -96,7 +96,7 @@ export default function Achievements() {
                       })()
                     : null}
                 </span>
-                <div className="flex flex-col gap-2">
+                <div className="flex flex-1 flex-col gap-2">
                   <h3 className="text-lg font-semibold text-[color:var(--color-emerald)] sm:text-xl">
                     {item.title}
                   </h3>
@@ -110,23 +110,23 @@ export default function Achievements() {
                       {item.authority}
                     </p>
                   ) : null}
+                  <div className="mt-1 flex flex-wrap gap-2 text-xs uppercase tracking-[0.2em] text-[var(--color-gold)]">
+                    {item.year ? (
+                      <span className="rounded-full border border-[color:var(--color-gold)]/40 px-3 py-1">
+                        {item.year}
+                      </span>
+                    ) : null}
+                    {item.category ? (
+                      <span className="rounded-full border border-[color:var(--color-emerald)]/15 px-3 py-1 text-[color:var(--color-emerald)]">
+                        {item.category}
+                      </span>
+                    ) : null}
+                  </div>
                 </div>
               </div>
-              <div className="flex flex-wrap gap-2 text-xs uppercase tracking-[0.2em] text-[var(--color-gold)] sm:justify-end">
-                {item.year ? (
-                  <span className="rounded-full border border-[color:var(--color-gold)]/40 px-3 py-1">
-                    {item.year}
-                  </span>
-                ) : null}
-                {item.category ? (
-                  <span className="rounded-full border border-[color:var(--color-emerald)]/15 px-3 py-1 text-[color:var(--color-emerald)]">
-                    {item.category}
-                  </span>
-                ) : null}
-              </div>
-            </motion.li>
+            </motion.article>
           ))}
-        </motion.ul>
+        </motion.div>
       </div>
     </motion.section>
   );

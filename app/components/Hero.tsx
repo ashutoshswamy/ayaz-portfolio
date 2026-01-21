@@ -5,6 +5,7 @@ import { fadeUp, motion, staggerChildren } from "./Animated";
 export default function Hero() {
   return (
     <motion.section
+      id="top"
       className="relative isolate overflow-hidden"
       initial="hidden"
       animate="visible"

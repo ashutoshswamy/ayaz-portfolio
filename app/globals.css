@@ -73,6 +73,18 @@ h6 {
     linear-gradient(120deg, rgba(15, 61, 46, 0.08), rgba(201, 162, 77, 0.08));
 }
 
+.hero-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(
+    rgba(15, 61, 46, 0.12) 0.5px,
+    transparent 0.5px
+  );
+  background-size: 22px 22px;
+  opacity: 0.25;
+}
+
 .hero-bg::after {
   content: "";
   position: absolute;
@@ -86,6 +98,29 @@ h6 {
     radial-gradient(60% 35% at 80% 70%, rgba(15, 61, 46, 0.18), transparent 70%);
   opacity: 0.7;
   filter: blur(18px);
+}
+
+section {
+  position: relative;
+}
+
+section + section {
+  border-top: 1px solid rgba(15, 61, 46, 0.08);
+}
+
+section + section::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 72px;
+  background: linear-gradient(
+    180deg,
+    rgba(15, 61, 46, 0.06),
+    rgba(15, 61, 46, 0)
+  );
+  pointer-events: none;
 }
 
 .hero-fade {

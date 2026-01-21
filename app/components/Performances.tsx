@@ -1,21 +1,22 @@
 "use client";
 
-import { Globe, MapPin, Route } from "lucide-react";
+import { MapPin, Route } from "lucide-react";
+import { AE, BH, IN, MY, SG, ZA } from "country-flag-icons/react/3x2";
 
 import { fadeUp, motion, staggerChildren, viewportOnce } from "./Animated";
 
-const national = ["India"];
+const national = [{ name: "India", Flag: IN }];
 
 const international = [
-  "South Africa",
-  "Dubai",
-  "Singapore",
-  "Sharjah",
-  "East Africa",
-  "Abu Dhabi",
-  "Al Ain",
-  "Malaysia",
-  "Bahrain",
+  { name: "South Africa", Flag: ZA },
+  { name: "Dubai", Flag: AE },
+  { name: "Singapore", Flag: SG },
+  { name: "Sharjah", Flag: AE },
+  { name: "East Africa", Flag: null },
+  { name: "Abu Dhabi", Flag: AE },
+  { name: "Al Ain", Flag: AE },
+  { name: "Malaysia", Flag: MY },
+  { name: "Bahrain", Flag: BH },
 ];
 
 export default function Performances() {
@@ -41,10 +42,7 @@ export default function Performances() {
             carries a story and a shared rhythm.
           </p>
         </motion.div>
-        <motion.div
-          variants={staggerChildren}
-          className="grid gap-8 lg:grid-cols-[1fr_1.2fr]"
-        >
+        <motion.div variants={staggerChildren} className="grid gap-8">
           <motion.div
             variants={fadeUp}
             className="rounded-2xl border border-[color:var(--color-emerald)]/10 bg-white/70 p-6"
@@ -52,18 +50,24 @@ export default function Performances() {
             <p className="text-xs uppercase tracking-[0.3em] text-[var(--color-gold)]">
               National
             </p>
-            <div className="mt-4 space-y-4">
-              {national.map((place) => (
-                <div key={place} className="flex items-center gap-3">
-                  <span className="flex h-7 w-7 items-center justify-center rounded-full border border-[color:var(--color-emerald)]/30 bg-[var(--color-offwhite)]">
+            <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {national.map(({ name, Flag }) => (
+                <div
+                  key={name}
+                  className="flex items-center gap-3 rounded-xl border border-[color:var(--color-emerald)]/10 bg-[var(--color-offwhite)]/70 px-4 py-3"
+                >
+                  <span className="flex h-9 w-12 items-center justify-center overflow-hidden rounded-md border border-[color:var(--color-emerald)]/20 bg-white">
+                    <Flag className="h-full w-full" aria-hidden="true" />
+                  </span>
+                  <div className="flex items-center gap-2">
                     <MapPin
                       className="h-4 w-4 text-[var(--color-emerald)]"
                       aria-hidden="true"
                     />
-                  </span>
-                  <span className="text-base font-semibold text-[color:var(--color-emerald)]">
-                    {place}
-                  </span>
+                    <span className="text-sm font-semibold text-[color:var(--color-emerald)] sm:text-base">
+                      {name}
+                    </span>
+                  </div>
                 </div>
               ))}
             </div>
@@ -75,24 +79,24 @@ export default function Performances() {
             <p className="text-xs uppercase tracking-[0.3em] text-[var(--color-gold)]">
               International
             </p>
-            <div className="mt-4 space-y-4">
-              {international.map((place) => (
-                <div key={place} className="flex items-center gap-3">
-                  <span className="flex h-7 w-7 items-center justify-center rounded-full border border-[color:var(--color-emerald)]/30 bg-[var(--color-offwhite)]">
-                    {place === "East Africa" ? (
-                      <Route
-                        className="h-4 w-4 text-[var(--color-emerald)]"
-                        aria-hidden="true"
-                      />
+            <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {international.map(({ name, Flag }) => (
+                <div
+                  key={name}
+                  className="flex items-center gap-3 rounded-xl border border-[color:var(--color-emerald)]/10 bg-[var(--color-offwhite)]/70 px-4 py-3"
+                >
+                  <span className="flex h-9 w-12 items-center justify-center overflow-hidden rounded-md border border-[color:var(--color-emerald)]/20 bg-white">
+                    {Flag ? (
+                      <Flag className="h-full w-full" aria-hidden="true" />
                     ) : (
-                      <Globe
+                      <Route
                         className="h-4 w-4 text-[var(--color-emerald)]"
                         aria-hidden="true"
                       />
                     )}
                   </span>
-                  <span className="text-base text-[color:var(--text-dark)]/80">
-                    {place}
+                  <span className="text-sm text-[color:var(--text-dark)]/80 sm:text-base">
+                    {name}
                   </span>
                 </div>
               ))}

@@ -86,16 +86,16 @@ export default function Awards() {
         </motion.div>
         <motion.div
           variants={staggerChildren}
-          className="divide-y divide-[color:var(--color-emerald)]/10 rounded-2xl border border-[color:var(--color-emerald)]/10 bg-white/70"
+          className="grid gap-6 sm:grid-cols-2"
         >
           {awards.map((award) => (
-            <motion.div
+            <motion.article
               key={award.title}
               variants={fadeUp}
-              className="px-6 py-6"
+              className="rounded-2xl border border-[color:var(--color-emerald)]/10 bg-white/70 p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md"
             >
               <div className="flex items-start gap-3">
-                <span className="mt-1 inline-flex h-8 w-8 items-center justify-center rounded-full border border-[color:var(--color-emerald)]/20 bg-[color:var(--color-offwhite)]">
+                <span className="mt-1 inline-flex h-9 w-9 items-center justify-center rounded-full border border-[color:var(--color-emerald)]/20 bg-[color:var(--color-offwhite)]">
                   {(() => {
                     const Icon =
                       iconMap[award.category as keyof typeof iconMap];
@@ -118,7 +118,7 @@ export default function Awards() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </motion.article>
           ))}
         </motion.div>
       </div>
