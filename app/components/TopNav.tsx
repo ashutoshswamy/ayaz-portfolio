@@ -2,6 +2,7 @@
 
 import { Menu, X } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
+import { usePathname } from "next/navigation";
 
 const sections = [
   { id: "top", label: "Home" },
@@ -11,12 +12,14 @@ const sections = [
   { id: "performances", label: "Performances" },
   { id: "collaborations", label: "Collaborations" },
   { id: "awards", label: "Awards" },
+  { id: "gallery", label: "Gallery" },
   { id: "contact", label: "Contact" },
 ];
 
 export default function TopNav() {
   const [activeId, setActiveId] = useState("top");
   const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
 
   const sectionIds = useMemo(() => sections.map((section) => section.id), []);
 
@@ -49,7 +52,7 @@ export default function TopNav() {
     <header className="sticky top-0 z-50 border-b border-[color:var(--color-emerald)]/10 bg-[var(--color-offwhite)]/90 backdrop-blur">
       <nav className="container flex items-center justify-between gap-6 py-4">
         <a
-          href="#top"
+          href={pathname === "/" ? "#top" : "/#top"}
           className="text-sm font-semibold uppercase tracking-[0.3em] text-[var(--color-emerald)]"
         >
           Mohammad Ayaz
@@ -58,7 +61,11 @@ export default function TopNav() {
           {sections.map((section) => (
             <a
               key={section.id}
-              href={`#${section.id}`}
+              href={
+                pathname === "/gallery" && section.id !== "gallery"
+                  ? `/#${section.id}`
+                  : `#${section.id}`
+              }
               aria-current={activeId === section.id ? "page" : undefined}
               className={`whitespace-nowrap border-b border-transparent pb-1 transition ${
                 activeId === section.id
@@ -95,7 +102,11 @@ export default function TopNav() {
           {sections.map((section) => (
             <a
               key={section.id}
-              href={`#${section.id}`}
+              href={
+                pathname === "/gallery" && section.id !== "gallery"
+                  ? `/#${section.id}`
+                  : `#${section.id}`
+              }
               onClick={() => setIsOpen(false)}
               aria-current={activeId === section.id ? "page" : undefined}
               className={`border-l-2 pl-3 transition ${

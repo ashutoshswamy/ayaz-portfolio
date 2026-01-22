@@ -5,6 +5,7 @@ import BackToTop from "./components/BackToTop";
 import Collaborations from "./components/Collaborations";
 import Contact from "./components/Contact";
 import Discography from "./components/Discography";
+import Gallery from "./components/Gallery";
 import Performances from "./components/Performances";
 import Hero from "./components/Hero";
 import TopNav from "./components/TopNav";
@@ -20,6 +21,7 @@ export default function Home() {
       <Performances />
       <Collaborations />
       <Awards />
+      <Gallery limit={9} showCta />
       <Contact />
       <BackToTop />
     </div>
