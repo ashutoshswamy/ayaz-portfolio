@@ -1,15 +1,7 @@
 "use client";
 
-import {
-  ChevronLeft,
-  ChevronRight,
-  Clock,
-  Disc,
-  Mic,
-  Music,
-  PlayCircle,
-} from "lucide-react";
-import { useMemo, useRef } from "react";
+import { Clock, Disc, Mic, Music, PlayCircle } from "lucide-react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 import { fadeUp, motion, staggerChildren, viewportOnce } from "./Animated";
 
@@ -103,13 +95,29 @@ const toEmbedUrl = (url: string) => {
 
 export default function Discography() {
   const scrollerRef = useRef<HTMLDivElement | null>(null);
-  const cardWidth = useMemo(() => 360, []);
+  const [isPaused, setIsPaused] = useState(false);
 
-  const scrollByAmount = (direction: "prev" | "next") => {
-    if (!scrollerRef.current) return;
-    const delta = direction === "next" ? cardWidth + 24 : -(cardWidth + 24);
-    scrollerRef.current.scrollBy({ left: delta, behavior: "smooth" });
-  };
+  useEffect(() => {
+    const el = scrollerRef.current;
+    if (!el) return undefined;
+
+    const prefersReduced = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    if (prefersReduced) return undefined;
+
+    const interval = window.setInterval(() => {
+      if (!scrollerRef.current || isPaused) return;
+      const target = scrollerRef.current;
+      if (target.scrollWidth <= target.clientWidth) return;
+      target.scrollLeft += 1;
+      if (target.scrollLeft + target.clientWidth >= target.scrollWidth - 2) {
+        target.scrollLeft = 0;
+      }
+    }, 20);
+
+    return () => window.clearInterval(interval);
+  }, [isPaused]);
 
   return (
     <motion.section
@@ -121,43 +129,24 @@ export default function Discography() {
       variants={staggerChildren}
     >
       <div className="container">
-        <motion.div
-          variants={fadeUp}
-          className="mb-8 flex flex-wrap items-end justify-between gap-4"
-        >
-          <div className="flex flex-col gap-3">
-            <span className="text-xs uppercase tracking-[0.35em] text-[var(--color-gold)] sm:text-sm">
-              Discography
-            </span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl">Discography</h2>
-            <p className="max-w-2xl text-base text-[color:var(--text-dark)]/75 sm:text-lg">
-              A complete catalog of albums and songs, presented with clarity and
-              respect for every collaborator and label.
-            </p>
-          </div>
-          <div className="flex items-center gap-2">
-            <button
-              type="button"
-              onClick={() => scrollByAmount("prev")}
-              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[color:var(--color-emerald)]/20 text-[var(--color-emerald)] transition hover:bg-[var(--color-emerald)]/10"
-              aria-label="Scroll discography left"
-            >
-              <ChevronLeft className="h-4 w-4" aria-hidden="true" />
-            </button>
-            <button
-              type="button"
-              onClick={() => scrollByAmount("next")}
-              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[color:var(--color-emerald)]/20 text-[var(--color-emerald)] transition hover:bg-[var(--color-emerald)]/10"
-              aria-label="Scroll discography right"
-            >
-              <ChevronRight className="h-4 w-4" aria-hidden="true" />
-            </button>
-          </div>
+        <motion.div variants={fadeUp} className="mb-8 flex flex-col gap-3">
+          <span className="text-xs uppercase tracking-[0.35em] text-[var(--color-gold)] sm:text-sm">
+            Discography
+          </span>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl">Discography</h2>
+          <p className="max-w-2xl text-base text-[color:var(--text-dark)]/75 sm:text-lg">
+            A complete catalog of albums and songs, presented with clarity and
+            respect for every collaborator and label.
+          </p>
         </motion.div>
         <motion.div variants={staggerChildren} className="relative">
           <div
             ref={scrollerRef}
-            className="-mx-4 flex snap-x snap-mandatory gap-6 overflow-x-auto px-4 pb-2"
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
+            onFocus={() => setIsPaused(true)}
+            onBlur={() => setIsPaused(false)}
+            className="-mx-4 flex gap-6 overflow-x-auto px-4 pb-2"
             style={{ scrollPaddingLeft: "1rem" }}
           >
             {works.map((work) => {
@@ -166,7 +155,7 @@ export default function Discography() {
                 <motion.article
                   key={work.title}
                   variants={fadeUp}
-                  className="min-w-[280px] snap-start rounded-2xl border border-[color:var(--color-emerald)]/10 bg-white/70 p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-md sm:min-w-[340px] lg:min-w-[360px]"
+                  className="min-w-[280px] rounded-2xl border border-[color:var(--color-emerald)]/10 bg-white/70 p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-md sm:min-w-[340px] lg:min-w-[360px]"
                 >
                   <div className="mb-4 space-y-3">
                     <div className="flex items-start gap-2">
