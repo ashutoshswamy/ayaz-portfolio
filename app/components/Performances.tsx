@@ -5,8 +5,6 @@ import { AE, BH, IN, MY, SG, ZA } from "country-flag-icons/react/3x2";
 
 import { fadeUp, motion, staggerChildren, viewportOnce } from "./Animated";
 
-const national = [{ name: "India", Flag: IN }];
-
 const international = [
   { name: "South Africa", Flag: ZA },
   { name: "Dubai", Flag: AE },
@@ -43,35 +41,6 @@ export default function Performances() {
           </p>
         </motion.div>
         <motion.div variants={staggerChildren} className="grid gap-8">
-          <motion.div
-            variants={fadeUp}
-            className="rounded-2xl border border-[color:var(--color-emerald)]/10 bg-white/70 p-6"
-          >
-            <p className="text-xs uppercase tracking-[0.3em] text-[var(--color-gold)]">
-              National
-            </p>
-            <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {national.map(({ name, Flag }) => (
-                <div
-                  key={name}
-                  className="flex items-center gap-3 rounded-xl border border-[color:var(--color-emerald)]/10 bg-[var(--color-offwhite)]/70 px-4 py-3"
-                >
-                  <span className="flex h-9 w-12 items-center justify-center overflow-hidden rounded-md border border-[color:var(--color-emerald)]/20 bg-white">
-                    <Flag className="h-full w-full" aria-hidden="true" />
-                  </span>
-                  <div className="flex items-center gap-2">
-                    <MapPin
-                      className="h-4 w-4 text-[var(--color-emerald)]"
-                      aria-hidden="true"
-                    />
-                    <span className="text-sm font-semibold text-[color:var(--color-emerald)] sm:text-base">
-                      {name}
-                    </span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </motion.div>
           <motion.div
             variants={fadeUp}
             className="rounded-2xl border border-[color:var(--color-emerald)]/10 bg-white/70 p-6"

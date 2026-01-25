@@ -32,10 +32,7 @@ export default function Contact() {
               Phone
             </p>
             <p className="text-base font-medium text-[color:var(--color-emerald)]">
-              +91 90000 00000
-            </p>
-            <p className="text-base font-medium text-[color:var(--color-emerald)]">
-              +91 90000 00001
+              +91 95959 91786
             </p>
           </motion.div>
           <motion.div variants={fadeUp} className="flex flex-col gap-1">
@@ -43,7 +40,7 @@ export default function Contact() {
               Email
             </p>
             <p className="text-base font-medium text-[color:var(--color-emerald)]">
-              contact@mohammadayaz.com
+              md.ayaz7862@gmail.com
             </p>
           </motion.div>
           <motion.div variants={fadeUp} className="flex flex-col gap-1">
@@ -60,7 +57,7 @@ export default function Contact() {
           >
             <a
               className="inline-flex w-full items-center justify-center rounded-full bg-[var(--color-emerald)] px-6 py-3 text-sm font-medium text-[var(--color-offwhite)] transition hover:opacity-90 sm:w-auto"
-              href="mailto:contact@mohammadayaz.com"
+              href="mailto:md.ayaz7862@gmail.com"
             >
               Get in Touch
             </a>

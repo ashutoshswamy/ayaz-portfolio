@@ -88,11 +88,11 @@ export const galleryImages = [
   "WhatsApp Image 2026-01-22 at 11.47.15 (1).jpeg",
   "WhatsApp Image 2026-01-22 at 11.47.15.jpeg",
   "WhatsApp Image 2026-01-22 at 11.47.16.jpeg",
-  "WhatsApp Image 2026-01-22 at 11.47.46 (1).jpeg",
-  "WhatsApp Image 2026-01-22 at 11.47.46 (2).jpeg",
-  "WhatsApp Image 2026-01-22 at 11.47.46.jpeg",
-  "WhatsApp Image 2026-01-22 at 11.47.47 (1).jpeg",
-  "WhatsApp Image 2026-01-22 at 11.47.47.jpeg",
+
+
+
+
+
   "WhatsApp Image 2026-01-22 at 11.47.48 (1).jpeg",
   "WhatsApp Image 2026-01-22 at 11.47.48.jpeg",
   "WhatsApp Image 2026-01-22 at 11.47.49 (1).jpeg",
