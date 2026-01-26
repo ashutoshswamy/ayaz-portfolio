@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+
 import { fadeUp, motion, staggerChildren } from "./Animated";
 
 export default function Hero() {
@@ -12,7 +14,19 @@ export default function Hero() {
       variants={staggerChildren}
     >
       <div className="hero-bg" aria-hidden="true" />
-      <div className="container relative z-10 flex min-h-[75vh] flex-col items-center justify-center gap-4 py-24 text-center">
+      <div className="container relative z-10 flex min-h-[75vh] flex-col items-center justify-center gap-6 py-24 text-center">
+        <motion.div
+          variants={fadeUp}
+          className="relative mb-4 h-48 w-48 overflow-hidden rounded-full border-4 border-[var(--color-gold)] shadow-xl sm:h-56 sm:w-56 md:h-64 md:w-64"
+        >
+          <Image
+            src="/profile/hero-profile.jpg"
+            alt="Mohammad Ayaz"
+            fill
+            className="object-cover"
+            priority
+          />
+        </motion.div>
         <motion.span
           variants={fadeUp}
           className="text-xs uppercase tracking-[0.35em] text-[var(--color-gold)] sm:text-sm"
