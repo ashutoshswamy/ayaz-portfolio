@@ -20,7 +20,7 @@ export default function Hero() {
           className="relative mb-4 h-48 w-48 overflow-hidden rounded-full border-4 border-[var(--color-gold)] shadow-xl sm:h-56 sm:w-56 md:h-64 md:w-64"
         >
           <Image
-            src="/profile/hero-profile.jpg"
+            src="/profile/WhatsApp Image 2026-01-22 at 11.47.46 (2).jpeg"
             alt="Mohammad Ayaz"
             fill
             className="object-cover"
