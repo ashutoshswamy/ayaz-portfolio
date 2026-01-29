@@ -1,7 +1,7 @@
 "use client";
 
-import { MapPin, Route } from "lucide-react";
-import { AE, BH, IN, MY, SG, ZA } from "country-flag-icons/react/3x2";
+import { Route } from "lucide-react";
+import { AE, BH, MY, SG, ZA } from "country-flag-icons/react/3x2";
 
 import { fadeUp, motion, staggerChildren, viewportOnce } from "./Animated";
 

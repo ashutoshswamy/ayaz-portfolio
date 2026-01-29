@@ -1,6 +1,7 @@
 "use client";
 
 import { X } from "lucide-react";
+import Image from "next/image";
 import { useEffect } from "react";
 
 type LightboxProps = {
@@ -45,7 +46,13 @@ export default function Lightbox({ src, alt, onClose }: LightboxProps) {
         >
           <X className="h-5 w-5" aria-hidden="true" />
         </button>
-        <img src={src} alt={alt} className="h-full w-full object-contain" />
+        <Image 
+          src={src} 
+          alt={alt} 
+          fill
+          className="object-contain"
+          sizes="100vw"
+        />
       </div>
     </div>
   );

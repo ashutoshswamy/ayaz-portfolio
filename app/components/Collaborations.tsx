@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { Users } from "lucide-react";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { fadeUp, motion, staggerChildren, viewportOnce } from "./Animated";
 

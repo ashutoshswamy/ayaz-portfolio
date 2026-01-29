@@ -1,11 +1,11 @@
 "use client";
 
-
 import Link from "next/link";
-import { useState } from "react";
+import Image from "next/image";
+import { useState, useEffect } from "react";
+import { supabase } from "@/lib/supabase";
 
 import { fadeUp, motion, staggerChildren, viewportOnce } from "./Animated";
-import { galleryImages } from "./galleryImages";
 import Lightbox from "./Lightbox";
 
 type GalleryProps = {
@@ -16,6 +16,11 @@ type GalleryProps = {
   description?: string;
 };
 
+type GalleryImage = {
+  id: string;
+  url: string;
+};
+
 export default function Gallery({
   limit,
   showCta = false,
@@ -24,8 +29,34 @@ export default function Gallery({
   description = "A visual journey through performances, collaborations, and celebrations on stage.",
 }: GalleryProps) {
   const [activeImage, setActiveImage] = useState<string | null>(null);
+  const [images, setImages] = useState<GalleryImage[]>([]);
 
-  const images = limit ? galleryImages.slice(0, limit) : galleryImages;
+  useEffect(() => {
+    async function fetchImages() {
+      try {
+        let query = supabase
+          .from("gallery")
+          .select("id, url")
+          .order("created_at", { ascending: false });
+        
+        if (limit) {
+          query = query.limit(limit);
+        }
+
+        const { data, error } = await query;
+
+        if (error) {
+          console.error("Error fetching images:", error);
+        } else {
+          setImages(data || []);
+        }
+      } catch (err) {
+        console.error("Unexpected error:", err);
+      }
+    }
+
+    fetchImages();
+  }, [limit]);
 
   return (
     <motion.section
@@ -64,34 +95,24 @@ export default function Gallery({
           className="columns-1 gap-4 space-y-4 sm:columns-2 lg:columns-3"
         >
           {images.map((image, index) => {
-            const isRotated =
-              image.includes("11.46.41.jpeg") ||
-              image.includes("11.48.01.jpeg");
             return (
               <motion.figure
-                key={image}
+                key={image.id}
                 variants={fadeUp}
-                className={`group relative break-inside-avoid overflow-hidden rounded-2xl border border-[color:var(--color-emerald)]/10 bg-white/70 shadow-sm ${
-                  isRotated ? "aspect-[4/3]" : ""
-                }`}
+                className="group relative break-inside-avoid overflow-hidden rounded-2xl border border-[color:var(--color-emerald)]/10 bg-white/70 shadow-sm"
               >
                 <button
                   type="button"
-                  onClick={() => setActiveImage(image)}
-                  className={`relative block w-full cursor-zoom-in ${
-                    isRotated ? "h-full" : ""
-                  }`}
+                  onClick={() => setActiveImage(image.url)}
+                  className="relative block w-full cursor-zoom-in"
                   aria-label={`Open image ${index + 1}`}
                 >
-                  <img
-                    src={`/gallery/${encodeURIComponent(image)}`}
+                  <Image
+                    src={image.url}
                     alt={`Gallery image ${index + 1}`}
-                    loading="lazy"
-                    className={`bg-[var(--color-offwhite)] transition duration-500 group-hover:scale-105 ${
-                      isRotated
-                        ? "absolute left-1/2 top-1/2 h-[135%] w-[135%] -translate-x-1/2 -translate-y-1/2 -rotate-90 object-contain"
-                        : "h-auto w-full object-contain"
-                    }`}
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    className="bg-[var(--color-offwhite)] transition duration-500 group-hover:scale-105 object-contain"
                   />
                   <span className="sr-only">Open image</span>
                 </button>
@@ -104,7 +125,7 @@ export default function Gallery({
         </motion.div>
         {activeImage ? (
           <Lightbox
-            src={`/gallery/${encodeURIComponent(activeImage)}`}
+            src={activeImage}
             alt="Gallery image"
             onClose={() => setActiveImage(null)}
           />

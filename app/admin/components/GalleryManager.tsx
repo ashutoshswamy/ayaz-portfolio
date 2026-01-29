@@ -1,0 +1,183 @@
+'use client';
+
+import { useState, useEffect } from 'react';
+import { supabase } from '@/lib/supabase';
+import { Trash2, Upload, Loader2, Image as ImageIcon } from 'lucide-react';
+import Image from 'next/image';
+
+type GalleryImage = {
+  id: string;
+  url: string;
+  created_at: string;
+};
+
+export default function GalleryManager() {
+  const [images, setImages] = useState<GalleryImage[]>([]);
+  const [uploading, setUploading] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchImages();
+  }, []);
+
+  const fetchImages = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('gallery')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+      setImages(data || []);
+    } catch (error) {
+      console.error('Error fetching images:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    try {
+      setUploading(true);
+      const file = event.target.files?.[0];
+      if (!file) return;
+
+      const fileExt = file.name.split('.').pop();
+      const fileName = `${Math.random()}.${fileExt}`;
+      const filePath = `${fileName}`;
+
+      // 1. Upload to Storage
+      const { error: uploadError } = await supabase.storage
+        .from('gallery')
+        .upload(filePath, file);
+
+      if (uploadError) throw uploadError;
+
+      // 2. Get Public URL
+      const { data: { publicUrl } } = supabase.storage
+        .from('gallery')
+        .getPublicUrl(filePath);
+
+      // 3. Insert into Database
+      const { error: dbError } = await supabase
+        .from('gallery')
+        .insert([{ url: publicUrl }]);
+
+      if (dbError) throw dbError;
+
+      fetchImages();
+      // Reset input
+      event.target.value = '';
+    } catch (error) {
+      console.error('Error uploading image:', error);
+      alert('Error uploading image');
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  const handleDelete = async (id: string, url: string) => {
+    if (!confirm('Are you sure you want to delete this image?')) return;
+
+    try {
+      // Extract filename from URL for storage deletion
+      const filename = url.split('/').pop();
+      
+      if (filename) {
+         // 1. Delete from Storage
+        const { error: storageError } = await supabase.storage
+          .from('gallery')
+          .remove([filename]);
+          
+         if (storageError) console.error('Error deleting from storage:', storageError);
+      }
+
+      // 2. Delete from Database
+      const { error: dbError } = await supabase
+        .from('gallery')
+        .delete()
+        .eq('id', id);
+
+      if (dbError) throw dbError;
+
+      setImages(images.filter((img) => img.id !== id));
+    } catch (error) {
+      console.error('Error deleting image:', error);
+      alert('Error deleting image');
+    }
+  };
+
+  if (loading) {
+    return (
+        <div className="flex justify-center p-8">
+            <Loader2 className="h-8 w-8 animate-spin text-[var(--color-emerald)]" />
+        </div>
+    )
+  }
+
+  return (
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
+        <h3 className="text-lg font-medium leading-6 text-gray-900">Gallery Images</h3>
+        <div className="relative">
+            <input
+                type="file"
+                accept="image/*"
+                onChange={handleUpload}
+                disabled={uploading}
+                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer disabled:cursor-not-allowed"
+            />
+            <button
+                type="button"
+                disabled={uploading}
+                className="inline-flex items-center gap-x-2 rounded-md bg-[var(--color-emerald)] px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-[var(--color-emerald)]/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-emerald)] disabled:opacity-70"
+            >
+                {uploading ? (
+                    <Loader2 className="-ml-0.5 h-5 w-5 animate-spin" aria-hidden="true" />
+                ) : (
+                    <Upload className="-ml-0.5 h-5 w-5" aria-hidden="true" />
+                )}
+                Upload Image
+            </button>
+        </div>
+      </div>
+
+      <ul role="list" className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8">
+        {images.map((image) => (
+          <li key={image.id} className="relative group">
+            <div className="aspect-[10/7] group block w-full overflow-hidden rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-[var(--color-emerald)] focus-within:ring-offset-2 focus-within:ring-offset-gray-100">
+              <Image
+                src={image.url}
+                alt=""
+                fill
+                sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                className="pointer-events-none object-contain group-hover:opacity-75"
+              />
+              <button
+                type="button"
+                className="absolute inset-0 focus:outline-none"
+              >
+                <span className="sr-only">View details for {image.id}</span>
+              </button>
+            </div>
+            <button
+                onClick={() => handleDelete(image.id, image.url)}
+                type="button"
+                className="absolute top-2 right-2 rounded-full bg-red-600 p-1.5 text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600 opacity-0 group-hover:opacity-100 transition-opacity"
+            >
+                <Trash2 className="h-4 w-4" aria-hidden="true" />
+            </button>
+          </li>
+        ))}
+      </ul>
+      
+      {images.length === 0 && (
+          <div className="text-center py-12">
+              <ImageIcon className="mx-auto h-12 w-12 text-gray-300" />
+              <h3 className="mt-2 text-sm font-semibold text-gray-900">No images</h3>
+              <p className="mt-1 text-sm text-gray-500">Get started by uploading a new image.</p>
+          </div>
+      )}
+    </div>
+  );
+}
