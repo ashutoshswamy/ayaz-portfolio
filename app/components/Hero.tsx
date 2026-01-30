@@ -50,15 +50,26 @@ export default function Hero() {
       <div className="container relative z-10 flex min-h-[85vh] flex-col items-center justify-center gap-6 py-16 text-center sm:py-20 md:py-24 lg:min-h-[90vh]">
         <motion.div
           variants={fadeUp}
-          className="relative mb-6 h-72 w-72 sm:h-80 sm:w-80 md:h-96 md:w-96 lg:h-[28rem] lg:w-[28rem]"
+          className="relative mb-6 w-64 sm:w-72 md:w-80 lg:w-96"
         >
-          <Image
-            src={imageSrc}
-            alt="Mohammad Ayaz"
-            fill
-            className="object-contain"
-            priority
-          />
+          {/* Decorative Frame */}
+          <div className="absolute -inset-4 rounded-3xl border border-[var(--color-gold)]/20 sm:-inset-6" />
+          <div className="absolute -bottom-3 -right-3 h-24 w-24 rounded-full bg-[var(--color-gold)]/10 blur-2xl sm:-bottom-6 sm:-right-6 sm:h-40 sm:w-40" />
+          <div className="absolute -left-3 -top-3 h-20 w-20 rounded-full bg-[var(--color-gold)]/10 blur-2xl sm:-left-6 sm:-top-6 sm:h-32 sm:w-32" />
+          
+          {/* Main Image */}
+          <div className="relative aspect-[3/4] overflow-hidden rounded-2xl shadow-2xl">
+            <Image
+              src={imageSrc}
+              alt="Mohammad Ayaz"
+              fill
+              className="object-cover transition-transform duration-700 hover:scale-105"
+              sizes="(max-width: 768px) 256px, (max-width: 1024px) 320px, 384px"
+              priority
+            />
+            {/* Gradient Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
+          </div>
         </motion.div>
         <motion.span
           variants={fadeUp}
