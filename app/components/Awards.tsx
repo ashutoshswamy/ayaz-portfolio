@@ -79,7 +79,7 @@ export default function Awards() {
             Awards & Honors
           </span>
           <h2 className="text-3xl sm:text-4xl md:text-5xl">Awards & Honors</h2>
-          <p className="max-w-2xl text-base text-[color:var(--text-dark)]/75 sm:text-lg">
+          <p className="max-w-2xl text-base text-[var(--text-muted)] sm:text-lg">
             A dignified record of recognition, service, and cultural
             stewardship.
           </p>
@@ -92,23 +92,23 @@ export default function Awards() {
             <motion.article
               key={award.title}
               variants={fadeUp}
-              className="rounded-2xl border border-[color:var(--color-emerald)]/10 bg-white/70 p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md"
+              className="rounded-2xl border border-[var(--color-gold)]/15 bg-[var(--color-secondary)]/80 p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg hover:border-[var(--color-gold)]/30 backdrop-blur"
             >
               <div className="flex items-start gap-3">
-                <span className="mt-1 inline-flex h-9 w-9 items-center justify-center rounded-full border border-[color:var(--color-emerald)]/20 bg-[color:var(--color-offwhite)]">
+                <span className="mt-1 inline-flex h-9 w-9 items-center justify-center rounded-full border border-[var(--color-gold)]/30 bg-[var(--color-tertiary)]">
                   {(() => {
                     const Icon =
                       iconMap[award.category as keyof typeof iconMap];
                     return Icon ? (
                       <Icon
-                        className="h-4 w-4 text-[var(--color-emerald)]"
+                        className="h-4 w-4 text-[var(--color-gold)]"
                         aria-hidden="true"
                       />
                     ) : null;
                   })()}
                 </span>
                 <div className="flex flex-1 flex-col gap-2">
-                  <h3 className="text-lg font-semibold text-[color:var(--color-emerald)] sm:text-xl">
+                  <h3 className="text-lg font-semibold text-[var(--color-gold)] sm:text-xl">
                     {award.title}
                   </h3>
                   <div className="flex flex-wrap gap-2 text-xs uppercase tracking-[0.2em] text-[var(--color-gold)]">

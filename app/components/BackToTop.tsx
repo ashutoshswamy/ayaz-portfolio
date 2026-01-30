@@ -19,7 +19,7 @@ export default function BackToTop() {
   return (
     <a
       href="#top"
-      className={`fixed bottom-6 right-6 z-40 inline-flex h-12 w-12 items-center justify-center rounded-full border border-[color:var(--color-emerald)]/20 bg-[var(--color-offwhite)]/95 text-[var(--color-emerald)] shadow-sm transition ${
+      className={`fixed bottom-6 right-6 z-40 inline-flex h-12 w-12 items-center justify-center rounded-full border border-[var(--color-gold)]/30 bg-[var(--color-secondary)]/95 text-[var(--color-gold)] shadow-lg transition ${
         visible ? "opacity-100" : "pointer-events-none translate-y-2 opacity-0"
       }`}
       aria-label="Back to top"

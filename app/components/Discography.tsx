@@ -86,7 +86,7 @@ export default function Discography() {
             Discography
           </span>
           <h2 className="text-3xl sm:text-4xl md:text-5xl">Discography</h2>
-          <p className="max-w-2xl text-base text-[color:var(--text-dark)]/75 sm:text-lg">
+          <p className="max-w-2xl text-base text-[var(--text-muted)] sm:text-lg">
             A complete catalog of albums and songs, presented with clarity and
             respect for every collaborator and label.
           </p>
@@ -94,7 +94,7 @@ export default function Discography() {
         
         {loading ? (
              <div className="flex justify-center py-10">
-                 <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[var(--color-emerald)]"></div>
+                 <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[var(--color-gold)]"></div>
              </div>
         ) : (
             <motion.div variants={staggerChildren} className="relative">
@@ -113,21 +113,21 @@ export default function Discography() {
                     <motion.article
                       key={work.id}
                       variants={fadeUp}
-                      className="min-w-[280px] rounded-2xl border border-[color:var(--color-emerald)]/10 bg-white/70 p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-md sm:min-w-[340px] lg:min-w-[360px]"
+                      className="min-w-[280px] rounded-2xl border border-[var(--color-gold)]/15 bg-[var(--color-secondary)]/80 p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-lg hover:border-[var(--color-gold)]/30 backdrop-blur sm:min-w-[340px] lg:min-w-[360px]"
                     >
                       <div className="mb-4 space-y-3">
                         <div className="flex items-start gap-2">
                           <Music
-                            className="mt-1 h-4 w-4 text-[var(--color-emerald)]"
+                            className="mt-1 h-4 w-4 text-[var(--color-gold)]"
                             aria-hidden="true"
                           />
-                          <h3 className="text-lg font-semibold text-[color:var(--color-emerald)]">
+                          <h3 className="text-lg font-semibold text-[var(--color-gold)]">
                             {work.title}
                           </h3>
                         </div>
-                        <div className="flex items-center gap-2 text-sm text-[color:var(--text-dark)]/75">
+                        <div className="flex items-center gap-2 text-sm text-[var(--text-muted)]">
                           <Mic
-                            className="h-4 w-4 text-[var(--color-emerald)]"
+                            className="h-4 w-4 text-[var(--color-gold)]"
                             aria-hidden="true"
                           />
                           <span>{work.artists}</span>
@@ -140,10 +140,10 @@ export default function Discography() {
                           <span>{work.label}</span>
                         </div>
                       </div>
-                      <div className="relative w-full overflow-hidden rounded-xl bg-[var(--color-offwhite)] pt-[56.25%]">
+                      <div className="relative w-full overflow-hidden rounded-xl bg-[var(--color-tertiary)] pt-[56.25%]">
                         {embedUrl ? (
                           <>
-                            <div className="absolute left-3 top-3 z-10 flex items-center gap-2 rounded-full bg-[var(--color-offwhite)]/90 px-3 py-1 text-xs uppercase tracking-[0.2em] text-[var(--color-emerald)]">
+                            <div className="absolute left-3 top-3 z-10 flex items-center gap-2 rounded-full bg-[var(--color-primary)]/90 px-3 py-1 text-xs uppercase tracking-[0.2em] text-[var(--color-gold)]">
                               <PlayCircle className="h-4 w-4" aria-hidden="true" />
                               Video
                             </div>
@@ -156,7 +156,7 @@ export default function Discography() {
                             />
                           </>
                         ) : (
-                          <div className="absolute inset-0 flex items-center justify-center gap-2 text-xs uppercase tracking-[0.3em] text-[color:var(--text-dark)]/60">
+                          <div className="absolute inset-0 flex items-center justify-center gap-2 text-xs uppercase tracking-[0.3em] text-[var(--text-muted)]">
                             <Clock className="h-4 w-4" aria-hidden="true" />
                             Coming Soon
                           </div>

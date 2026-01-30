@@ -40,16 +40,16 @@ export default function AdminLogin() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-[var(--color-offwhite)] px-4">
-      <div className="w-full max-w-md space-y-8 rounded-2xl bg-white p-8 shadow-lg sm:p-10">
+    <div className="flex min-h-screen items-center justify-center bg-[var(--color-primary)] px-4">
+      <div className="w-full max-w-md space-y-8 rounded-2xl bg-[var(--color-secondary)] p-8 shadow-lg sm:p-10 border border-[var(--color-gold)]/15">
         <div className="text-center">
-          <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-[var(--color-emerald)]/10">
-            <Lock className="h-6 w-6 text-[var(--color-emerald)]" />
+          <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-[var(--color-gold)]/10">
+            <Lock className="h-6 w-6 text-[var(--color-gold)]" />
           </div>
-          <h2 className="mt-6 text-3xl font-bold tracking-tight text-[var(--color-emerald)]">
+          <h2 className="mt-6 text-3xl font-bold tracking-tight text-[var(--color-gold)]">
             Admin Login
           </h2>
-          <p className="mt-2 text-sm text-[var(--text-dark)]/60">
+          <p className="mt-2 text-sm text-[var(--text-muted)]">
             Please sign in to access the dashboard
           </p>
         </div>
@@ -70,7 +70,7 @@ export default function AdminLogin() {
                 name="email"
                 type="email"
                 required
-                className="relative block w-full rounded-md border-0 py-2.5 text-[var(--text-dark)] ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-[var(--color-emerald)] sm:text-sm sm:leading-6 pl-3"
+                className="relative block w-full rounded-md border-0 py-2.5 bg-[var(--color-tertiary)] text-[var(--text-light)] ring-1 ring-inset ring-[var(--color-gold)]/20 placeholder:text-[var(--text-muted)] focus:z-10 focus:ring-2 focus:ring-inset focus:ring-[var(--color-gold)] sm:text-sm sm:leading-6 pl-3"
                 placeholder="Email address"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -85,7 +85,7 @@ export default function AdminLogin() {
                 name="password"
                 type="password"
                 required
-                className="relative block w-full rounded-md border-0 py-2.5 text-[var(--text-dark)] ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-[var(--color-emerald)] sm:text-sm sm:leading-6 pl-3"
+                className="relative block w-full rounded-md border-0 py-2.5 bg-[var(--color-tertiary)] text-[var(--text-light)] ring-1 ring-inset ring-[var(--color-gold)]/20 placeholder:text-[var(--text-muted)] focus:z-10 focus:ring-2 focus:ring-inset focus:ring-[var(--color-gold)] sm:text-sm sm:leading-6 pl-3"
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -97,7 +97,7 @@ export default function AdminLogin() {
             <button
               type="submit"
               disabled={loading}
-              className="group relative flex w-full justify-center rounded-md bg-[var(--color-emerald)] px-3 py-2.5 text-sm font-semibold text-white hover:bg-[var(--color-emerald)]/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-emerald)] disabled:opacity-70 disabled:cursor-not-allowed"
+              className="group relative flex w-full justify-center rounded-md bg-[var(--color-gold)] px-3 py-2.5 text-sm font-semibold text-[var(--color-primary)] hover:bg-[var(--color-gold-dark)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-gold)] disabled:opacity-70 disabled:cursor-not-allowed"
             >
               {loading ? 'Signing in...' : 'Sign in'}
             </button>

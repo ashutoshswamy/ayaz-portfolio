@@ -49,7 +49,7 @@ export default function TopNav() {
   }, [sectionIds]);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-[color:var(--color-emerald)]/10 bg-[var(--color-offwhite)]/90 backdrop-blur">
+    <header className="sticky top-0 z-50 border-b border-[var(--color-gold)]/15 bg-[var(--color-primary)]/95 backdrop-blur">
       <nav className="container flex items-center justify-between gap-6 py-4">
         <a
           href={pathname === "/" ? "#top" : "/#top"}
@@ -57,7 +57,7 @@ export default function TopNav() {
         >
           Mohammad Ayaz
         </a>
-        <div className="hidden flex-1 items-center gap-4 text-xs uppercase tracking-[0.2em] text-[color:var(--text-dark)]/70 lg:flex lg:justify-center">
+        <div className="hidden flex-1 items-center gap-4 text-xs uppercase tracking-[0.2em] text-[var(--text-muted)] lg:flex lg:justify-center">
           {sections.map((section) => (
             <a
               key={section.id}
@@ -69,8 +69,8 @@ export default function TopNav() {
               aria-current={activeId === section.id ? "page" : undefined}
               className={`whitespace-nowrap border-b border-transparent pb-1 transition ${
                 activeId === section.id
-                  ? "border-[var(--color-emerald)] text-[var(--color-emerald)]"
-                  : "hover:text-[var(--color-emerald)]"
+                  ? "border-[var(--color-gold)] text-[var(--color-gold)]"
+                  : "hover:text-[var(--color-gold)]"
               }`}
             >
               {section.label}
@@ -80,7 +80,7 @@ export default function TopNav() {
         <button
           type="button"
           onClick={() => setIsOpen((prev) => !prev)}
-          className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[color:var(--color-emerald)]/20 text-[var(--color-emerald)] transition hover:bg-[var(--color-emerald)]/10 lg:hidden"
+          className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[var(--color-gold)]/30 text-[var(--color-gold)] transition hover:bg-[var(--color-gold)]/10 lg:hidden"
           aria-expanded={isOpen}
           aria-controls="mobile-nav"
           aria-label="Toggle navigation"
@@ -94,11 +94,11 @@ export default function TopNav() {
       </nav>
       <div
         id="mobile-nav"
-        className={`border-t border-[color:var(--color-emerald)]/10 bg-[var(--color-offwhite)]/95 transition lg:hidden ${
+        className={`border-t border-[var(--color-gold)]/15 bg-[var(--color-primary)]/98 transition lg:hidden ${
           isOpen ? "block" : "hidden"
         }`}
       >
-        <div className="container flex flex-col gap-3 py-4 text-xs uppercase tracking-[0.2em] text-[color:var(--text-dark)]/70">
+        <div className="container flex flex-col gap-3 py-4 text-xs uppercase tracking-[0.2em] text-[var(--text-muted)]">
           {sections.map((section) => (
             <a
               key={section.id}
@@ -111,8 +111,8 @@ export default function TopNav() {
               aria-current={activeId === section.id ? "page" : undefined}
               className={`border-l-2 pl-3 transition ${
                 activeId === section.id
-                  ? "border-[var(--color-emerald)] text-[var(--color-emerald)]"
-                  : "border-transparent hover:text-[var(--color-emerald)]"
+                  ? "border-[var(--color-gold)] text-[var(--color-gold)]"
+                  : "border-transparent hover:text-[var(--color-gold)]"
               }`}
             >
               {section.label}

@@ -110,7 +110,7 @@ export default function GalleryManager() {
   if (loading) {
     return (
         <div className="flex justify-center p-8">
-            <Loader2 className="h-8 w-8 animate-spin text-[var(--color-emerald)]" />
+            <Loader2 className="h-8 w-8 animate-spin text-[var(--color-gold)]" />
         </div>
     )
   }
@@ -118,7 +118,7 @@ export default function GalleryManager() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h3 className="text-lg font-medium leading-6 text-gray-900">Gallery Images</h3>
+        <h3 className="text-lg font-medium leading-6 text-[var(--text-light)]">Gallery Images</h3>
         <div className="relative">
             <input
                 type="file"
@@ -130,7 +130,7 @@ export default function GalleryManager() {
             <button
                 type="button"
                 disabled={uploading}
-                className="inline-flex items-center gap-x-2 rounded-md bg-[var(--color-emerald)] px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-[var(--color-emerald)]/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-emerald)] disabled:opacity-70"
+                className="inline-flex items-center gap-x-2 rounded-md bg-[var(--color-gold)] px-3.5 py-2.5 text-sm font-semibold text-[var(--color-primary)] shadow-sm hover:bg-[var(--color-gold-dark)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-gold)] disabled:opacity-70"
             >
                 {uploading ? (
                     <Loader2 className="-ml-0.5 h-5 w-5 animate-spin" aria-hidden="true" />
@@ -145,7 +145,7 @@ export default function GalleryManager() {
       <ul role="list" className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8">
         {images.map((image) => (
           <li key={image.id} className="relative group">
-            <div className="aspect-[10/7] group block w-full overflow-hidden rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-[var(--color-emerald)] focus-within:ring-offset-2 focus-within:ring-offset-gray-100">
+            <div className="aspect-[10/7] group block w-full overflow-hidden rounded-lg bg-[var(--color-tertiary)] focus-within:ring-2 focus-within:ring-[var(--color-gold)] focus-within:ring-offset-2 focus-within:ring-offset-[var(--color-secondary)]">
               <Image
                 src={image.url}
                 alt=""
@@ -173,9 +173,9 @@ export default function GalleryManager() {
       
       {images.length === 0 && (
           <div className="text-center py-12">
-              <ImageIcon className="mx-auto h-12 w-12 text-gray-300" />
-              <h3 className="mt-2 text-sm font-semibold text-gray-900">No images</h3>
-              <p className="mt-1 text-sm text-gray-500">Get started by uploading a new image.</p>
+              <ImageIcon className="mx-auto h-12 w-12 text-[var(--text-muted)]" />
+              <h3 className="mt-2 text-sm font-semibold text-[var(--text-light)]">No images</h3>
+              <p className="mt-1 text-sm text-[var(--text-muted)]">Get started by uploading a new image.</p>
           </div>
       )}
     </div>

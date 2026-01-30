@@ -18,20 +18,20 @@ export default function Contact() {
             Contact
           </span>
           <h2 className="text-3xl sm:text-4xl md:text-5xl">Get in Touch</h2>
-          <p className="max-w-2xl text-base text-[color:var(--text-dark)]/75 sm:text-lg">
+          <p className="max-w-2xl text-base text-[var(--text-muted)] sm:text-lg">
             For performances, collaborations, and cultural events, feel free to
             reach out. Every invitation is received with respect and care.
           </p>
         </motion.div>
         <motion.div
           variants={staggerChildren}
-          className="mt-8 grid gap-6 rounded-2xl border border-[color:var(--color-emerald)]/10 bg-white/70 p-6 sm:grid-cols-2 lg:grid-cols-4"
+          className="mt-8 grid gap-6 rounded-2xl border border-[var(--color-gold)]/15 bg-[var(--color-secondary)]/80 p-6 sm:grid-cols-2 lg:grid-cols-4 backdrop-blur"
         >
           <motion.div variants={fadeUp} className="flex flex-col gap-1">
             <p className="text-sm uppercase tracking-[0.2em] text-[var(--color-gold)]">
               Phone
             </p>
-            <p className="text-base font-medium text-[color:var(--color-emerald)]">
+            <p className="text-base font-medium text-[var(--text-light)]">
               +91 95959 91786
             </p>
           </motion.div>
@@ -39,7 +39,7 @@ export default function Contact() {
             <p className="text-sm uppercase tracking-[0.2em] text-[var(--color-gold)]">
               Email
             </p>
-            <p className="text-base font-medium text-[color:var(--color-emerald)]">
+            <p className="text-base font-medium text-[var(--text-light)]">
               md.ayaz7862@gmail.com
             </p>
           </motion.div>
@@ -47,7 +47,7 @@ export default function Contact() {
             <p className="text-sm uppercase tracking-[0.2em] text-[var(--color-gold)]">
               Location
             </p>
-            <p className="text-base font-medium text-[color:var(--color-emerald)]">
+            <p className="text-base font-medium text-[var(--text-light)]">
               Mumbai / Solapur
             </p>
           </motion.div>
@@ -61,7 +61,7 @@ export default function Contact() {
                 href="https://www.instagram.com/mohammadayaz.official/?hl=en"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex h-10 w-10 items-center justify-center rounded-full border border-[var(--color-emerald)]/20 text-[var(--color-emerald)] transition hover:border-[var(--color-emerald)] hover:bg-[var(--color-emerald)] hover:text-[var(--color-offwhite)]"
+                className="flex h-10 w-10 items-center justify-center rounded-full border border-[var(--color-gold)]/30 text-[var(--color-gold)] transition hover:border-[var(--color-gold)] hover:bg-[var(--color-gold)] hover:text-[var(--color-primary)]"
                 aria-label="Instagram"
               >
                 <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
@@ -72,7 +72,7 @@ export default function Contact() {
                 href="https://x.com/mohdayazmusic?lang=en"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex h-10 w-10 items-center justify-center rounded-full border border-[var(--color-emerald)]/20 text-[var(--color-emerald)] transition hover:border-[var(--color-emerald)] hover:bg-[var(--color-emerald)] hover:text-[var(--color-offwhite)]"
+                className="flex h-10 w-10 items-center justify-center rounded-full border border-[var(--color-gold)]/30 text-[var(--color-gold)] transition hover:border-[var(--color-gold)] hover:bg-[var(--color-gold)] hover:text-[var(--color-primary)]"
                 aria-label="X (Twitter)"
               >
                 <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
@@ -83,7 +83,7 @@ export default function Contact() {
                 href="https://www.facebook.com/mohammadayaz.official/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex h-10 w-10 items-center justify-center rounded-full border border-[var(--color-emerald)]/20 text-[var(--color-emerald)] transition hover:border-[var(--color-emerald)] hover:bg-[var(--color-emerald)] hover:text-[var(--color-offwhite)]"
+                className="flex h-10 w-10 items-center justify-center rounded-full border border-[var(--color-gold)]/30 text-[var(--color-gold)] transition hover:border-[var(--color-gold)] hover:bg-[var(--color-gold)] hover:text-[var(--color-primary)]"
                 aria-label="Facebook"
               >
                 <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
@@ -94,7 +94,7 @@ export default function Contact() {
                 href="https://www.youtube.com/@mohdayazofficial1786"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex h-10 w-10 items-center justify-center rounded-full border border-[var(--color-emerald)]/20 text-[var(--color-emerald)] transition hover:border-[var(--color-emerald)] hover:bg-[var(--color-emerald)] hover:text-[var(--color-offwhite)]"
+                className="flex h-10 w-10 items-center justify-center rounded-full border border-[var(--color-gold)]/30 text-[var(--color-gold)] transition hover:border-[var(--color-gold)] hover:bg-[var(--color-gold)] hover:text-[var(--color-primary)]"
                 aria-label="YouTube"
               >
                 <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
@@ -103,7 +103,7 @@ export default function Contact() {
               </a>
             </div>
             <a
-              className="inline-flex w-full items-center justify-center rounded-full bg-[var(--color-emerald)] px-6 py-3 text-sm font-medium text-[var(--color-offwhite)] transition hover:opacity-90 sm:w-auto"
+              className="inline-flex w-full items-center justify-center rounded-full bg-[var(--color-gold)] px-6 py-3 text-sm font-medium text-[var(--color-primary)] transition hover:bg-[var(--color-gold-dark)] sm:w-auto"
               href="mailto:md.ayaz7862@gmail.com"
             >
               Get in Touch

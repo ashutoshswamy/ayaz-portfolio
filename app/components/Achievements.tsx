@@ -66,7 +66,7 @@ export default function Achievements() {
           <h2 className="text-3xl sm:text-4xl md:text-5xl">
             Milestones & Honors
           </h2>
-          <p className="max-w-2xl text-base text-[color:var(--text-dark)]/75 sm:text-lg">
+          <p className="max-w-2xl text-base text-[var(--text-muted)] sm:text-lg">
             A journey marked by recognized excellence, cultural impact, and
             celebrated performances.
           </p>
@@ -79,17 +79,17 @@ export default function Achievements() {
             <motion.article
               key={item.title}
               variants={fadeUp}
-              className="group rounded-2xl border border-[color:var(--color-emerald)]/10 bg-white/70 p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md"
+              className="group rounded-2xl border border-[var(--color-gold)]/15 bg-[var(--color-secondary)]/80 p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg hover:border-[var(--color-gold)]/30 backdrop-blur"
             >
               <div className="flex items-start gap-3">
-                <span className="mt-1 inline-flex h-9 w-9 items-center justify-center rounded-full border border-[color:var(--color-emerald)]/20 bg-[color:var(--color-offwhite)]">
+                <span className="mt-1 inline-flex h-9 w-9 items-center justify-center rounded-full border border-[var(--color-gold)]/30 bg-[var(--color-tertiary)]">
                   {item.category
                     ? (() => {
                         const Icon =
                           iconMap[item.category as keyof typeof iconMap];
                         return Icon ? (
                           <Icon
-                            className="h-4 w-4 text-[var(--color-emerald)]"
+                            className="h-4 w-4 text-[var(--color-gold)]"
                             aria-hidden="true"
                           />
                         ) : null;
@@ -97,16 +97,16 @@ export default function Achievements() {
                     : null}
                 </span>
                 <div className="flex flex-1 flex-col gap-2">
-                  <h3 className="text-lg font-semibold text-[color:var(--color-emerald)] sm:text-xl">
+                  <h3 className="text-lg font-semibold text-[var(--color-gold)] sm:text-xl">
                     {item.title}
                   </h3>
                   {item.detail ? (
-                    <p className="text-sm text-[color:var(--text-dark)]/75 sm:text-base">
+                    <p className="text-sm text-[var(--text-muted)] sm:text-base">
                       {item.detail}
                     </p>
                   ) : null}
                   {item.authority ? (
-                    <p className="text-sm text-[color:var(--text-dark)]/70 sm:text-base">
+                    <p className="text-sm text-[var(--text-muted)] sm:text-base">
                       {item.authority}
                     </p>
                   ) : null}
@@ -117,7 +117,7 @@ export default function Achievements() {
                       </span>
                     ) : null}
                     {item.category ? (
-                      <span className="rounded-full border border-[color:var(--color-emerald)]/15 px-3 py-1 text-[color:var(--color-emerald)]">
+                      <span className="rounded-full border border-[var(--color-gold)]/40 px-3 py-1 text-[var(--color-gold)]">
                         {item.category}
                       </span>
                     ) : null}

@@ -5,12 +5,13 @@ import { supabase } from '@/lib/supabase';
 import { useRouter } from 'next/navigation';
 import GalleryManager from './components/GalleryManager';
 import DiscographyManager from './components/DiscographyManager';
-import { LogOut, LayoutDashboard, Image as ImageIcon, Disc } from 'lucide-react';
+import HeroManager from './components/HeroManager';
+import { LogOut, LayoutDashboard, Image as ImageIcon, Disc, User } from 'lucide-react';
 
 export default function AdminPage() {
   const [loading, setLoading] = useState(true);
   const router = useRouter();
-  const [activeTab, setActiveTab] = useState<'gallery' | 'discography'>('gallery');
+  const [activeTab, setActiveTab] = useState<'hero' | 'gallery' | 'discography'>('hero');
 
   useEffect(() => {
     const checkSession = async () => {
@@ -31,31 +32,29 @@ export default function AdminPage() {
 
   if (loading) {
     return (
-        <div className="flex min-h-screen items-center justify-center bg-[var(--color-offwhite)]">
-             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[var(--color-emerald)]"></div>
+        <div className="flex min-h-screen items-center justify-center bg-[var(--color-primary)]">
+             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[var(--color-gold)]"></div>
         </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[var(--color-offwhite)]">
+    <div className="min-h-screen bg-[var(--color-primary)]">
       {/* Navigation */}
-      <nav className="bg-white shadow-sm">
+      <nav className="bg-[var(--color-secondary)] shadow-lg border-b border-[var(--color-gold)]/15">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex h-16 justify-between">
-            <div className="flex">
-              <div className="flex flex-shrink-0 items-center">
-                 <LayoutDashboard className="h-8 w-8 text-[var(--color-emerald)]" />
-                 <span className="ml-2 text-xl font-bold text-[var(--color-emerald)]">Admin Dashboard</span>
-              </div>
+          <div className="flex h-14 sm:h-16 justify-between items-center">
+            <div className="flex items-center gap-2">
+              <LayoutDashboard className="h-6 w-6 sm:h-8 sm:w-8 text-[var(--color-gold)]" />
+              <span className="text-base sm:text-xl font-bold text-[var(--color-gold)]">Admin</span>
             </div>
             <div className="flex items-center">
               <button
                 onClick={handleLogout}
-                className="inline-flex items-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 hover:bg-gray-50 ring-1 ring-inset ring-gray-300"
+                className="inline-flex items-center gap-x-1.5 rounded-md bg-[var(--color-tertiary)] px-2 sm:px-3 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-[var(--text-light)] hover:bg-[var(--color-tertiary)]/80 ring-1 ring-inset ring-[var(--color-gold)]/20"
               >
-                <LogOut className="-ml-0.5 h-5 w-5 text-gray-400" aria-hidden="true" />
-                Sign out
+                <LogOut className="h-4 w-4 sm:h-5 sm:w-5 text-[var(--text-muted)]" aria-hidden="true" />
+                <span className="hidden sm:inline">Sign out</span>
               </button>
             </div>
           </div>
@@ -65,8 +64,8 @@ export default function AdminPage() {
       <div className="py-10">
         <header>
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <h1 className="text-3xl font-bold leading-tight tracking-tight text-gray-900">
-                {activeTab === 'gallery' ? 'Gallery Management' : 'Discography Management'}
+            <h1 className="text-2xl sm:text-3xl font-bold leading-tight tracking-tight text-[var(--text-light)]">
+                {activeTab === 'hero' ? 'Hero Image' : activeTab === 'gallery' ? 'Gallery Management' : 'Discography Management'}
             </h1>
           </div>
         </header>
@@ -74,38 +73,50 @@ export default function AdminPage() {
         <main>
           <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
              {/* Tabs */}
-             <div className="mt-8 border-b border-gray-200">
-                 <nav className="-mb-px flex space-x-8 px-4 sm:px-0" aria-label="Tabs">
+             <div className="mt-6 sm:mt-8 border-b border-[var(--color-gold)]/20">
+                 <nav className="-mb-px flex space-x-4 sm:space-x-8 px-4 sm:px-0 overflow-x-auto" aria-label="Tabs">
+                     <button
+                        onClick={() => setActiveTab('hero')}
+                        className={`
+                            ${activeTab === 'hero'
+                                ? 'border-[var(--color-gold)] text-[var(--color-gold)]'
+                                : 'border-transparent text-[var(--text-muted)] hover:border-[var(--color-gold)]/50 hover:text-[var(--text-light)]'}
+                            whitespace-nowrap border-b-2 py-4 px-1 text-sm font-medium flex items-center gap-2
+                        `}
+                     >
+                        <User className="h-4 w-4 sm:h-5 sm:w-5" />
+                        Hero
+                     </button>
                      <button
                         onClick={() => setActiveTab('gallery')}
                         className={`
                             ${activeTab === 'gallery'
-                                ? 'border-[var(--color-emerald)] text-[var(--color-emerald)]'
-                                : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'}
+                                ? 'border-[var(--color-gold)] text-[var(--color-gold)]'
+                                : 'border-transparent text-[var(--text-muted)] hover:border-[var(--color-gold)]/50 hover:text-[var(--text-light)]'}
                             whitespace-nowrap border-b-2 py-4 px-1 text-sm font-medium flex items-center
                         `}
                      >
-                        <ImageIcon className="mr-2 h-5 w-5" />
+                        <ImageIcon className="h-4 w-4 sm:h-5 sm:w-5" />
                         Gallery
                      </button>
                      <button
                         onClick={() => setActiveTab('discography')}
                         className={`
                             ${activeTab === 'discography'
-                                ? 'border-[var(--color-emerald)] text-[var(--color-emerald)]'
-                                : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'}
+                                ? 'border-[var(--color-gold)] text-[var(--color-gold)]'
+                                : 'border-transparent text-[var(--text-muted)] hover:border-[var(--color-gold)]/50 hover:text-[var(--text-light)]'}
                             whitespace-nowrap border-b-2 py-4 px-1 text-sm font-medium flex items-center
                         `}
                      >
-                        <Disc className="mr-2 h-5 w-5" />
-                        Discography
+                        <Disc className="h-4 w-4 sm:h-5 sm:w-5" />
+                        Discog
                      </button>
                  </nav>
              </div>
 
              {/* Content */}
-             <div className="py-8">
-                 {activeTab === 'gallery' ? <GalleryManager /> : <DiscographyManager />}
+             <div className="py-4 sm:py-8 px-4 sm:px-0">
+                 {activeTab === 'hero' ? <HeroManager /> : activeTab === 'gallery' ? <GalleryManager /> : <DiscographyManager />}
              </div>
           </div>
         </main>

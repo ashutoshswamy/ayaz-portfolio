@@ -1,10 +1,43 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Image from "next/image";
+import { supabase } from "@/lib/supabase";
 
 import { fadeUp, motion, staggerChildren } from "./Animated";
 
+type HeroImage = {
+  id: string;
+  url: string;
+};
+
 export default function Hero() {
+  const [heroImage, setHeroImage] = useState<HeroImage | null>(null);
+  
+  useEffect(() => {
+    const fetchHeroImage = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('hero')
+          .select('*')
+          .single();
+
+        if (error && error.code !== 'PGRST116') {
+          console.error('Error fetching hero image:', error);
+          return;
+        }
+        setHeroImage(data || null);
+      } catch (error) {
+        console.error('Error fetching hero image:', error);
+      }
+    };
+
+    fetchHeroImage();
+  }, []);
+
+  // Fallback to local image if no Supabase image
+  const imageSrc = heroImage?.url || "/profile/WhatsApp Image 2026-01-22 at 11.47.46 (2).jpeg";
+
   return (
     <motion.section
       id="top"
@@ -14,16 +47,16 @@ export default function Hero() {
       variants={staggerChildren}
     >
       <div className="hero-bg" aria-hidden="true" />
-      <div className="container relative z-10 flex min-h-[75vh] flex-col items-center justify-center gap-6 py-24 text-center">
+      <div className="container relative z-10 flex min-h-[85vh] flex-col items-center justify-center gap-6 py-16 text-center sm:py-20 md:py-24 lg:min-h-[90vh]">
         <motion.div
           variants={fadeUp}
-          className="relative mb-4 h-48 w-48 overflow-hidden rounded-full border-4 border-[var(--color-gold)] shadow-xl sm:h-56 sm:w-56 md:h-64 md:w-64"
+          className="relative mb-6 h-72 w-72 sm:h-80 sm:w-80 md:h-96 md:w-96 lg:h-[28rem] lg:w-[28rem]"
         >
           <Image
-            src="/profile/WhatsApp Image 2026-01-22 at 11.47.46 (2).jpeg"
+            src={imageSrc}
             alt="Mohammad Ayaz"
             fill
-            className="object-cover"
+            className="object-contain"
             priority
           />
         </motion.div>
@@ -41,13 +74,13 @@ export default function Hero() {
         </motion.h1>
         <motion.p
           variants={fadeUp}
-          className="text-sm font-medium uppercase tracking-[0.2em] text-[color:var(--text-dark)]/70 sm:text-base md:text-lg"
+          className="text-sm font-medium uppercase tracking-[0.2em] text-[var(--text-muted)] sm:text-base md:text-lg"
         >
           Playback Singer • Music Director • World Record Holder
         </motion.p>
         <motion.p
           variants={fadeUp}
-          className="mt-2 max-w-2xl text-pretty text-base text-[color:var(--text-dark)]/80 sm:text-lg md:text-xl"
+          className="mt-2 max-w-2xl text-pretty text-base text-[var(--text-light)]/85 sm:text-lg md:text-xl"
         >
           Weaving soulful melodies, classical grace, and global rhythms into a
           single, timeless voice.
@@ -57,13 +90,13 @@ export default function Hero() {
           className="mt-6 flex flex-wrap justify-center gap-4"
         >
           <a
-            className="rounded-full bg-[var(--color-emerald)] px-6 py-3 text-sm font-medium text-[var(--color-offwhite)] transition hover:opacity-90 sm:text-base"
+            className="rounded-full bg-[var(--color-gold)] px-6 py-3 text-sm font-medium text-[var(--color-primary)] transition hover:bg-[var(--color-gold-dark)] sm:text-base"
             href="#discography"
           >
             Listen to Work
           </a>
           <a
-            className="rounded-full border border-[var(--color-emerald)] px-6 py-3 text-sm font-medium text-[var(--color-emerald)] transition hover:bg-[var(--color-emerald)] hover:text-[var(--color-offwhite)] sm:text-base"
+            className="rounded-full border border-[var(--color-gold)] px-6 py-3 text-sm font-medium text-[var(--color-gold)] transition hover:bg-[var(--color-gold)] hover:text-[var(--color-primary)] sm:text-base"
             href="#contact"
           >
             Contact for Events

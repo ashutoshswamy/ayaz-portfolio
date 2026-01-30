@@ -35,7 +35,7 @@ export default function Performances() {
           <h2 className="text-3xl sm:text-4xl md:text-5xl">
             Global Performances
           </h2>
-          <p className="max-w-2xl text-base text-[color:var(--text-dark)]/75 sm:text-lg">
+          <p className="max-w-2xl text-base text-[var(--text-muted)] sm:text-lg">
             From heritage theaters to international festivals, each venue
             carries a story and a shared rhythm.
           </p>
@@ -43,7 +43,7 @@ export default function Performances() {
         <motion.div variants={staggerChildren} className="grid gap-8">
           <motion.div
             variants={fadeUp}
-            className="rounded-2xl border border-[color:var(--color-emerald)]/10 bg-white/70 p-6"
+            className="rounded-2xl border border-[var(--color-gold)]/15 bg-[var(--color-secondary)]/80 p-6 backdrop-blur"
           >
             <p className="text-xs uppercase tracking-[0.3em] text-[var(--color-gold)]">
               International
@@ -52,19 +52,19 @@ export default function Performances() {
               {international.map(({ name, Flag }) => (
                 <div
                   key={name}
-                  className="flex items-center gap-3 rounded-xl border border-[color:var(--color-emerald)]/10 bg-[var(--color-offwhite)]/70 px-4 py-3"
+                  className="flex items-center gap-3 rounded-xl border border-[var(--color-gold)]/15 bg-[var(--color-tertiary)]/60 px-4 py-3"
                 >
-                  <span className="flex h-9 w-12 items-center justify-center overflow-hidden rounded-md border border-[color:var(--color-emerald)]/20 bg-white">
+                  <span className="flex h-9 w-12 items-center justify-center overflow-hidden rounded-md border border-[var(--color-gold)]/30 bg-[var(--color-primary)]">
                     {Flag ? (
                       <Flag className="h-full w-full" aria-hidden="true" />
                     ) : (
                       <Route
-                        className="h-4 w-4 text-[var(--color-emerald)]"
+                        className="h-4 w-4 text-[var(--color-gold)]"
                         aria-hidden="true"
                       />
                     )}
                   </span>
-                  <span className="text-sm text-[color:var(--text-dark)]/80 sm:text-base">
+                  <span className="text-sm text-[var(--text-light)] sm:text-base">
                     {name}
                   </span>
                 </div>

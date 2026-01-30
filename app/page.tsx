@@ -12,7 +12,7 @@ import TopNav from "./components/TopNav";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-[var(--color-offwhite)]">
+    <div className="min-h-screen bg-[var(--color-primary)]">
       <TopNav />
       <Hero />
       <About />

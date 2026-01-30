@@ -77,14 +77,14 @@ export default function Gallery({
               {subheading}
             </span>
             <h2 className="text-3xl sm:text-4xl md:text-5xl">{heading}</h2>
-            <p className="max-w-2xl text-base text-[color:var(--text-dark)]/75 sm:text-lg">
+            <p className="max-w-2xl text-base text-[var(--text-muted)] sm:text-lg">
               {description}
             </p>
           </div>
           {showCta ? (
             <Link
               href="/gallery"
-              className="inline-flex items-center justify-center rounded-full border border-[color:var(--color-emerald)] px-6 py-3 text-sm font-medium text-[var(--color-emerald)] transition hover:bg-[var(--color-emerald)] hover:text-[var(--color-offwhite)]"
+              className="inline-flex items-center justify-center rounded-full border border-[var(--color-gold)] px-6 py-3 text-sm font-medium text-[var(--color-gold)] transition hover:bg-[var(--color-gold)] hover:text-[var(--color-primary)]"
             >
               View full gallery
             </Link>
@@ -99,20 +99,21 @@ export default function Gallery({
               <motion.figure
                 key={image.id}
                 variants={fadeUp}
-                className="group relative break-inside-avoid overflow-hidden rounded-2xl border border-[color:var(--color-emerald)]/10 bg-white/70 shadow-sm"
+                className="group relative break-inside-avoid overflow-hidden rounded-2xl border border-[var(--color-gold)]/15 bg-[var(--color-secondary)]/60 shadow-sm"
               >
                 <button
                   type="button"
                   onClick={() => setActiveImage(image.url)}
-                  className="relative block w-full cursor-zoom-in"
+                  className="block w-full cursor-zoom-in overflow-hidden"
                   aria-label={`Open image ${index + 1}`}
                 >
                   <Image
                     src={image.url}
                     alt={`Gallery image ${index + 1}`}
-                    fill
+                    width={800}
+                    height={600}
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    className="bg-[var(--color-offwhite)] transition duration-500 group-hover:scale-105 object-contain"
+                    className="w-full h-auto bg-[var(--color-secondary)] transition duration-500 group-hover:scale-105 object-cover"
                   />
                   <span className="sr-only">Open image</span>
                 </button>

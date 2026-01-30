@@ -78,7 +78,7 @@ export default function Collaborations() {
               Collaborations & Celebrities
             </h2>
           </div>
-          <p className="max-w-2xl text-base text-[color:var(--text-dark)]/75 sm:text-lg">
+          <p className="max-w-2xl text-base text-[var(--text-muted)] sm:text-lg">
             A distinguished roster of collaborators and respected cultural
             personalities.
           </p>
@@ -97,7 +97,7 @@ export default function Collaborations() {
               <motion.article
                 key={person.name}
                 variants={fadeUp}
-                className="min-w-[220px] overflow-hidden rounded-2xl border border-[color:var(--color-emerald)]/10 bg-white/70 shadow-sm transition hover:-translate-y-1 hover:shadow-md sm:min-w-[240px] lg:min-w-[260px]"
+                className="min-w-[220px] overflow-hidden rounded-2xl border border-[var(--color-gold)]/15 bg-[var(--color-secondary)]/80 shadow-sm transition hover:-translate-y-1 hover:shadow-lg hover:border-[var(--color-gold)]/30 sm:min-w-[240px] lg:min-w-[260px]"
               >
                 <div className="relative aspect-[4/5] w-full">
                   <Image
@@ -109,7 +109,7 @@ export default function Collaborations() {
                   />
                 </div>
                 <div className="px-4 py-3">
-                  <p className="text-base font-semibold text-[color:var(--color-emerald)]">
+                  <p className="text-base font-semibold text-[var(--color-gold)]">
                     {person.name}
                   </p>
                 </div>

@@ -55,7 +55,7 @@ export default function About() {
           >
             <motion.p
               variants={fadeUp}
-              className="text-lg leading-relaxed text-[color:var(--text-dark)]/85 sm:text-xl"
+              className="text-lg leading-relaxed text-[var(--text-light)]/90 sm:text-xl"
             >
               From humble beginnings, Mohammad Ayaz carried the dignity of his
               heritage into every note, shaping a voice that honors tradition
@@ -63,7 +63,7 @@ export default function About() {
             </motion.p>
             <motion.p
               variants={fadeUp}
-              className="text-base leading-relaxed text-[color:var(--text-dark)]/75 sm:text-lg"
+              className="text-base leading-relaxed text-[var(--text-muted)] sm:text-lg"
             >
               With unwavering devotion to classical roots and a spirit open to
               global rhythms, his artistry rose from local stages to celebrated
@@ -72,7 +72,7 @@ export default function About() {
             </motion.p>
             <motion.p
               variants={fadeUp}
-              className="text-base leading-relaxed text-[color:var(--text-dark)]/75 sm:text-lg"
+              className="text-base leading-relaxed text-[var(--text-muted)] sm:text-lg"
             >
               Each performance reflects a legacy in motion—grounded, graceful,
               and guided by a belief that music can uplift cultures and unite
@@ -84,7 +84,7 @@ export default function About() {
               variants={fadeUp}
               className="relative mt-4 border-l-4 border-[var(--color-gold)] py-2 pl-6"
             >
-              <p className="text-lg font-medium italic text-[color:var(--text-dark)] sm:text-xl">
+              <p className="text-lg font-medium italic text-[var(--text-light)] sm:text-xl">
                 &quot;Music is the heritage we share—where every voice becomes a
                 bridge between hearts.&quot;
               </p>
