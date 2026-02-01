@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { Users } from "lucide-react";
+import { Users, Star } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
 import { fadeUp, motion, staggerChildren, viewportOnce } from "./Animated";
@@ -58,23 +58,33 @@ export default function Collaborations() {
   return (
     <motion.section
       id="collaborations"
-      className="py-20 sm:py-24"
+      className="py-20 sm:py-24 relative overflow-hidden"
       initial="hidden"
       whileInView="visible"
       viewport={viewportOnce}
       variants={staggerChildren}
     >
-      <div className="container">
+      {/* Background decorative elements */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <div className="absolute top-10 left-10 w-32 h-32 rounded-full bg-[var(--color-gold)]/5 blur-2xl" />
+        <div className="absolute bottom-20 right-10 w-48 h-48 rounded-full bg-[var(--color-gold)]/5 blur-3xl" />
+        <div className="absolute top-1/3 right-1/4 text-6xl text-[var(--color-gold)]/5">
+          ★
+        </div>
+      </div>
+
+      <div className="container relative z-10">
         <motion.div variants={fadeUp} className="mb-8 flex flex-col gap-3">
-          <span className="text-xs uppercase tracking-[0.35em] text-[var(--color-gold)] sm:text-sm">
+          <span className="text-xs uppercase tracking-[0.35em] text-[var(--color-gold)] sm:text-sm flex items-center gap-3">
+            <Star className="w-4 h-4" />
             Collaborations
           </span>
           <div className="flex items-center gap-3">
             <Users
-              className="h-5 w-5 text-[var(--color-gold)]"
+              className="h-6 w-6 text-[var(--color-gold)]"
               aria-hidden="true"
             />
-            <h2 className="text-3xl sm:text-4xl md:text-5xl">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl glow-text">
               Collaborations & Celebrities
             </h2>
           </div>
@@ -90,32 +100,57 @@ export default function Collaborations() {
             onMouseLeave={() => setIsPaused(false)}
             onFocus={() => setIsPaused(true)}
             onBlur={() => setIsPaused(false)}
-            className="-mx-4 flex gap-5 overflow-x-auto px-4 pb-2"
+            className="-mx-4 flex gap-5 overflow-x-auto px-4 pb-4 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-[var(--color-gold)]/20"
             style={{ scrollPaddingLeft: "1rem" }}
           >
-            {collaborators.map((person) => (
+            {collaborators.map((person, index) => (
               <motion.article
                 key={person.name}
                 variants={fadeUp}
-                className="min-w-[220px] overflow-hidden rounded-2xl border border-[var(--color-gold)]/15 bg-[var(--color-secondary)]/80 shadow-sm transition hover:-translate-y-1 hover:shadow-lg hover:border-[var(--color-gold)]/30 sm:min-w-[240px] lg:min-w-[260px]"
+                className="musical-card group min-w-[220px] overflow-hidden rounded-2xl border border-[var(--color-gold)]/15 bg-gradient-to-b from-[var(--color-secondary)]/80 to-[var(--color-primary)]/80 shadow-lg sm:min-w-[240px] lg:min-w-[260px]"
+                style={{ animationDelay: `${index * 30}ms` }}
               >
-                <div className="relative aspect-[4/5] w-full">
+                <div className="relative aspect-[4/5] w-full overflow-hidden">
                   <Image
                     src={person.src}
                     alt={person.name}
                     fill
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                    className="object-cover"
+                    className="object-cover transition-all duration-500 group-hover:scale-110"
                   />
+                  {/* Overlay gradient */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-primary)] via-transparent to-transparent opacity-60" />
+
+                  {/* Musical note on hover */}
+                  <div className="absolute top-3 right-3 w-8 h-8 rounded-full bg-[var(--color-gold)]/90 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform group-hover:scale-100 scale-50">
+                    <span className="text-[var(--color-primary)] text-lg">
+                      ♪
+                    </span>
+                  </div>
                 </div>
-                <div className="px-4 py-3">
-                  <p className="text-base font-semibold text-[var(--color-gold)]">
+                <div className="px-4 py-4 relative">
+                  <div className="absolute -top-6 left-4 w-12 h-1 bg-gradient-to-r from-[var(--color-gold)] to-transparent rounded-full" />
+                  <p className="text-base font-semibold text-[var(--color-gold)] group-hover:text-[var(--color-gold-light)] transition-colors">
                     {person.name}
+                  </p>
+                  <p className="text-xs text-[var(--text-muted)] mt-1 uppercase tracking-wider">
+                    Collaboration
                   </p>
                 </div>
               </motion.article>
             ))}
           </div>
+        </motion.div>
+
+        {/* Total count */}
+        <motion.div variants={fadeUp} className="mt-8 text-center">
+          <span className="inline-flex items-center gap-2 px-6 py-2 rounded-full border border-[var(--color-gold)]/20 bg-[var(--color-secondary)]/50 text-sm text-[var(--text-muted)]">
+            <Users className="w-4 h-4 text-[var(--color-gold)]" />
+            <span className="text-[var(--color-gold)] font-semibold">
+              {collaborators.length}+
+            </span>{" "}
+            Notable Collaborations
+          </span>
         </motion.div>
       </div>
     </motion.section>

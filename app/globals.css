@@ -2,16 +2,19 @@
 
 :root {
   /* Golden Twilight Color Palette - Dark Theme */
-  --color-primary: #0a1628;      /* Darkest navy - primary background */
-  --color-secondary: #101d2e;    /* Dark navy - secondary background */
-  --color-tertiary: #1a3a5c;     /* Medium navy - cards/elevated surfaces */
-  --color-accent: #1e5a8a;       /* Teal blue - accent/interactive elements */
-  --color-gold: #f5c800;         /* Bright gold - primary highlight */
-  --color-gold-dark: #daa520;    /* Dark gold - hover states */
-  --color-offwhite: #f8fafc;     /* Light text */
-  --text-light: #e8edf4;         /* Primary text on dark */
-  --text-muted: #94a3b8;         /* Muted text on dark */
-  
+  --color-primary: #0a0f1a; /* Deepest navy - primary background */
+  --color-secondary: #0d1829; /* Dark navy - secondary background */
+  --color-tertiary: #162944; /* Medium navy - cards/elevated surfaces */
+  --color-accent: #1e5a8a; /* Teal blue - accent/interactive elements */
+  --color-gold: #f5c800; /* Bright gold - primary highlight */
+  --color-gold-light: #ffd93d; /* Light gold - glows */
+  --color-gold-dark: #c9a600; /* Dark gold - hover states */
+  --color-offwhite: #f8fafc; /* Light text */
+  --text-light: #e8edf4; /* Primary text on dark */
+  --text-muted: #94a3b8; /* Muted text on dark */
+  --color-purple: #a855f7; /* Purple accent for variety */
+  --color-rose: #f43f5e; /* Rose accent */
+
   /* Legacy alias for compatibility */
   --color-emerald: var(--color-gold);
 }
@@ -43,6 +46,41 @@ body {
     -apple-system,
     sans-serif;
   line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* Musical Glow Text */
+.glow-text {
+  text-shadow:
+    0 0 20px rgba(245, 200, 0, 0.3),
+    0 0 40px rgba(245, 200, 0, 0.2),
+    0 0 60px rgba(245, 200, 0, 0.1);
+}
+
+/* Gold shimmer animation */
+@keyframes shimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+.shimmer-text {
+  background: linear-gradient(
+    90deg,
+    var(--color-gold) 0%,
+    var(--color-gold-light) 25%,
+    var(--color-gold) 50%,
+    var(--color-gold-light) 75%,
+    var(--color-gold) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 3s linear infinite;
 }
 
 h1,
@@ -84,16 +122,26 @@ h6 {
   inset: 0;
   background:
     radial-gradient(
-      700px 380px at 15% 10%,
-      rgba(245, 200, 0, 0.12),
-      transparent 60%
+      800px 500px at 20% 15%,
+      rgba(245, 200, 0, 0.15),
+      transparent 50%
     ),
     radial-gradient(
-      640px 420px at 85% 20%,
-      rgba(30, 90, 138, 0.25),
-      transparent 60%
+      600px 400px at 80% 25%,
+      rgba(168, 85, 247, 0.12),
+      transparent 50%
     ),
-    linear-gradient(120deg, var(--color-primary), var(--color-secondary));
+    radial-gradient(
+      700px 450px at 50% 80%,
+      rgba(30, 90, 138, 0.2),
+      transparent 50%
+    ),
+    linear-gradient(
+      135deg,
+      var(--color-primary) 0%,
+      var(--color-secondary) 50%,
+      var(--color-primary) 100%
+    );
 }
 
 .hero-bg::before {
@@ -138,11 +186,7 @@ section + section::before {
   right: 0;
   top: 0;
   height: 72px;
-  background: linear-gradient(
-    180deg,
-    rgba(30, 90, 138, 0.1),
-    transparent
-  );
+  background: linear-gradient(180deg, rgba(30, 90, 138, 0.1), transparent);
   pointer-events: none;
 }
 
@@ -163,7 +207,11 @@ section + section::before {
 
 /* Card/Surface Styles for Dark Theme */
 .card-surface {
-  background: linear-gradient(135deg, rgba(26, 58, 92, 0.5), rgba(16, 29, 46, 0.8));
+  background: linear-gradient(
+    135deg,
+    rgba(26, 58, 92, 0.5),
+    rgba(16, 29, 46, 0.8)
+  );
   border: 1px solid rgba(245, 200, 0, 0.1);
   backdrop-filter: blur(10px);
 }
@@ -187,12 +235,12 @@ html {
     font-size: 2rem;
     line-height: 1.2;
   }
-  
+
   h2 {
     font-size: 1.75rem;
     line-height: 1.25;
   }
-  
+
   h3 {
     font-size: 1.25rem;
     line-height: 1.3;
@@ -205,7 +253,7 @@ html {
   a {
     min-height: 44px;
   }
-  
+
   a:not(.inline-link) {
     display: inline-flex;
     align-items: center;
@@ -231,4 +279,319 @@ html {
     padding-left: max(1rem, env(safe-area-inset-left));
     padding-right: max(1rem, env(safe-area-inset-right));
   }
+}
+
+/* ===== MUSICAL ANIMATIONS & EFFECTS ===== */
+
+/* Floating music notes animation */
+@keyframes floatNote {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0.6;
+  }
+  25% {
+    transform: translateY(-15px) rotate(5deg);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translateY(-25px) rotate(-3deg);
+    opacity: 0.5;
+  }
+  75% {
+    transform: translateY(-10px) rotate(2deg);
+    opacity: 0.7;
+  }
+}
+
+.animate-float-note {
+  animation: floatNote 4s ease-in-out infinite;
+}
+
+/* Sound wave pulse animation */
+@keyframes soundWave {
+  0%,
+  100% {
+    transform: scaleY(0.4);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+
+.animate-sound-wave {
+  animation: soundWave 0.8s ease-in-out infinite;
+}
+
+/* Equalizer bar animations */
+@keyframes equalizerBar1 {
+  0%,
+  100% {
+    height: 20%;
+  }
+  50% {
+    height: 80%;
+  }
+}
+@keyframes equalizerBar2 {
+  0%,
+  100% {
+    height: 40%;
+  }
+  50% {
+    height: 100%;
+  }
+}
+@keyframes equalizerBar3 {
+  0%,
+  100% {
+    height: 60%;
+  }
+  50% {
+    height: 30%;
+  }
+}
+@keyframes equalizerBar4 {
+  0%,
+  100% {
+    height: 30%;
+  }
+  50% {
+    height: 90%;
+  }
+}
+@keyframes equalizerBar5 {
+  0%,
+  100% {
+    height: 50%;
+  }
+  50% {
+    height: 70%;
+  }
+}
+
+.equalizer-bar-1 {
+  animation: equalizerBar1 0.8s ease-in-out infinite;
+}
+.equalizer-bar-2 {
+  animation: equalizerBar2 0.6s ease-in-out infinite;
+  animation-delay: 0.1s;
+}
+.equalizer-bar-3 {
+  animation: equalizerBar3 0.7s ease-in-out infinite;
+  animation-delay: 0.2s;
+}
+.equalizer-bar-4 {
+  animation: equalizerBar4 0.5s ease-in-out infinite;
+  animation-delay: 0.15s;
+}
+.equalizer-bar-5 {
+  animation: equalizerBar5 0.9s ease-in-out infinite;
+  animation-delay: 0.25s;
+}
+
+/* Vinyl spin animation */
+@keyframes vinylSpin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-vinyl-spin {
+  animation: vinylSpin 4s linear infinite;
+}
+
+.animate-vinyl-spin-slow {
+  animation: vinylSpin 8s linear infinite;
+}
+
+/* Pulse glow for musical elements */
+@keyframes pulseGlow {
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(245, 200, 0, 0.3);
+  }
+  50% {
+    box-shadow:
+      0 0 40px rgba(245, 200, 0, 0.6),
+      0 0 60px rgba(245, 200, 0, 0.3);
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 2s ease-in-out infinite;
+}
+
+/* Golden border glow */
+@keyframes borderGlow {
+  0%,
+  100% {
+    border-color: rgba(245, 200, 0, 0.2);
+  }
+  50% {
+    border-color: rgba(245, 200, 0, 0.5);
+  }
+}
+
+.animate-border-glow {
+  animation: borderGlow 3s ease-in-out infinite;
+}
+
+/* Stagger reveal animation */
+@keyframes revealUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Musical card hover effect */
+.musical-card {
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.musical-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    135deg,
+    rgba(245, 200, 0, 0.05) 0%,
+    transparent 50%,
+    rgba(168, 85, 247, 0.05) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.musical-card:hover::before {
+  opacity: 1;
+}
+
+.musical-card:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.3),
+    0 0 30px rgba(245, 200, 0, 0.1);
+}
+
+/* Section divider with musical notes */
+.musical-divider {
+  position: relative;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(245, 200, 0, 0.3) 20%,
+    rgba(245, 200, 0, 0.5) 50%,
+    rgba(245, 200, 0, 0.3) 80%,
+    transparent
+  );
+}
+
+.musical-divider::before,
+.musical-divider::after {
+  content: "♪";
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-gold);
+  font-size: 1.25rem;
+  opacity: 0.5;
+}
+
+.musical-divider::before {
+  left: 30%;
+}
+
+.musical-divider::after {
+  right: 30%;
+  content: "♫";
+}
+
+/* Gradient text for headings */
+.gradient-text {
+  background: linear-gradient(
+    135deg,
+    var(--color-gold) 0%,
+    var(--color-gold-light) 50%,
+    var(--color-gold) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Button with musical hover */
+.musical-button {
+  position: relative;
+  overflow: hidden;
+}
+
+.musical-button::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transform: translateX(-100%);
+  transition: transform 0.5s ease;
+}
+
+.musical-button:hover::after {
+  transform: translateX(100%);
+}
+
+/* Floating particles background */
+.particles-bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* Glass morphism card */
+.glass-card {
+  background: rgba(13, 24, 41, 0.7);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(245, 200, 0, 0.1);
+}
+
+/* Neon text effect */
+.neon-text {
+  color: var(--color-gold);
+  text-shadow:
+    0 0 5px var(--color-gold),
+    0 0 10px var(--color-gold),
+    0 0 20px var(--color-gold),
+    0 0 40px var(--color-gold-dark);
+}
+
+/* Waveform decoration */
+.waveform {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  height: 24px;
+}
+
+.waveform span {
+  width: 3px;
+  background: var(--color-gold);
+  border-radius: 3px;
 }
