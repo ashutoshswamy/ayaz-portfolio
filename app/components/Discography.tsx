@@ -16,8 +16,33 @@ type Work = {
 
 const toEmbedUrl = (url: string) => {
   if (!url) return "";
-  const id = url.split("v=")[1]?.split("&")[0];
-  return id ? `https://www.youtube.com/embed/${id}` : "";
+  try {
+    const parsed = new URL(url);
+    // Only allow YouTube URLs
+    if (
+      parsed.hostname !== "www.youtube.com" &&
+      parsed.hostname !== "youtube.com" &&
+      parsed.hostname !== "youtu.be"
+    ) {
+      return "";
+    }
+
+    let videoId = "";
+    if (parsed.hostname === "youtu.be") {
+      videoId = parsed.pathname.slice(1);
+    } else {
+      videoId = parsed.searchParams.get("v") || "";
+    }
+
+    // Validate video ID format (alphanumeric, dash, underscore only)
+    if (!videoId || !/^[a-zA-Z0-9_-]{11}$/.test(videoId)) {
+      return "";
+    }
+
+    return `https://www.youtube-nocookie.com/embed/${videoId}`;
+  } catch {
+    return "";
+  }
 };
 
 // Animated Vinyl Component
@@ -190,6 +215,8 @@ export default function Discography() {
                             title={`YouTube video for ${work.title}`}
                             loading="lazy"
                             allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            referrerPolicy="strict-origin-when-cross-origin"
+                            sandbox="allow-scripts allow-same-origin allow-presentation"
                           />
                         </>
                       ) : (

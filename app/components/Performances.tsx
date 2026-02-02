@@ -97,7 +97,7 @@ export default function Performances() {
             <div className="mt-8 pt-6 border-t border-[var(--color-gold)]/10 flex flex-wrap justify-center gap-8 sm:gap-16">
               <div className="text-center">
                 <div className="text-3xl sm:text-4xl font-bold text-[var(--color-gold)]">
-                  5+
+                  50+
                 </div>
                 <div className="text-xs sm:text-sm text-[var(--text-muted)] uppercase tracking-wider mt-1">
                   Countries
@@ -113,7 +113,7 @@ export default function Performances() {
               </div>
               <div className="text-center">
                 <div className="text-3xl sm:text-4xl font-bold text-[var(--color-gold)]">
-                  500+
+                  5000+
                 </div>
                 <div className="text-xs sm:text-sm text-[var(--text-muted)] uppercase tracking-wider mt-1">
                   Live Shows

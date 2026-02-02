@@ -14,15 +14,17 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-[var(--color-primary)]">
       <TopNav />
-      <Hero />
-      <About />
-      <Achievements />
-      <Discography />
-      <Performances />
-      <Collaborations />
-      <Awards />
-      <Gallery limit={9} showCta />
-      <Contact />
+      <main className="pt-16">
+        <Hero />
+        <About />
+        <Achievements />
+        <Discography />
+        <Performances />
+        <Collaborations />
+        <Awards />
+        <Gallery limit={9} showCta />
+        <Contact />
+      </main>
       <BackToTop />
     </div>
   );

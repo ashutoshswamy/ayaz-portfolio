@@ -106,68 +106,80 @@ export default function Gallery({
             </Link>
           ) : null}
         </motion.div>
-        <motion.div
-          variants={staggerChildren}
-          className="columns-1 gap-4 space-y-4 sm:columns-2 lg:columns-3"
-        >
-          {images.map((image, index) => {
-            return (
-              <motion.figure
-                key={image.id}
-                variants={fadeUp}
-                className="musical-card group relative break-inside-avoid overflow-hidden rounded-2xl border border-[var(--color-gold)]/15 bg-[var(--color-secondary)]/60 shadow-lg"
+      </div>
+
+      {/* Auto-scrolling gallery rows */}
+      <motion.div variants={fadeUp} className="flex flex-col gap-4">
+        {/* Row 1 - Scroll Left */}
+        <div className="relative overflow-hidden">
+          <div className="flex gap-4 animate-scroll-left hover:[animation-play-state:paused]">
+            {[
+              ...images.slice(0, Math.ceil(images.length / 2)),
+              ...images.slice(0, Math.ceil(images.length / 2)),
+            ].map((image, index) => (
+              <figure
+                key={`row1-${image.id}-${index}`}
+                className="group relative flex-shrink-0 w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 overflow-hidden rounded-xl"
               >
                 <button
                   type="button"
                   onClick={() => setActiveImage(image.url)}
-                  className="block w-full cursor-zoom-in overflow-hidden"
+                  className="block w-full h-full cursor-zoom-in overflow-hidden"
                   aria-label={`Open image ${index + 1}`}
                 >
                   <Image
                     src={image.url}
                     alt={`Gallery image ${index + 1}`}
-                    width={800}
-                    height={600}
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    className="w-full h-auto bg-[var(--color-secondary)] transition duration-500 group-hover:scale-110 object-cover"
+                    fill
+                    sizes="320px"
+                    className="object-cover transition duration-500 group-hover:scale-110"
                   />
-                  {/* Hover overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-primary)]/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  <span className="sr-only">Open image</span>
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300" />
                 </button>
-                <figcaption className="absolute inset-x-0 bottom-0 flex items-center justify-between px-4 pb-4 pt-10 opacity-0 transition-all duration-300 group-hover:opacity-100">
-                  <span className="text-xs uppercase tracking-[0.25em] text-white/90 flex items-center gap-2">
-                    <span className="w-6 h-px bg-[var(--color-gold)]" />
-                    Moment {index + 1}
-                  </span>
-                  <span className="flex items-center justify-center w-8 h-8 rounded-full bg-[var(--color-gold)]/90 text-[var(--color-primary)]">
-                    <svg
-                      className="w-4 h-4"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"
-                      />
-                    </svg>
-                  </span>
-                </figcaption>
-              </motion.figure>
-            );
-          })}
-        </motion.div>
-        {activeImage ? (
-          <Lightbox
-            src={activeImage}
-            alt="Gallery image"
-            onClose={() => setActiveImage(null)}
-          />
-        ) : null}
-      </div>
+              </figure>
+            ))}
+          </div>
+        </div>
+
+        {/* Row 2 - Scroll Right */}
+        <div className="relative overflow-hidden">
+          <div className="flex gap-4 animate-scroll-right hover:[animation-play-state:paused]">
+            {[
+              ...images.slice(Math.ceil(images.length / 2)),
+              ...images.slice(Math.ceil(images.length / 2)),
+            ].map((image, index) => (
+              <figure
+                key={`row2-${image.id}-${index}`}
+                className="group relative flex-shrink-0 w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 overflow-hidden rounded-xl"
+              >
+                <button
+                  type="button"
+                  onClick={() => setActiveImage(image.url)}
+                  className="block w-full h-full cursor-zoom-in overflow-hidden"
+                  aria-label={`Open image ${index + 1}`}
+                >
+                  <Image
+                    src={image.url}
+                    alt={`Gallery image ${index + 1}`}
+                    fill
+                    sizes="320px"
+                    className="object-cover transition duration-500 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300" />
+                </button>
+              </figure>
+            ))}
+          </div>
+        </div>
+      </motion.div>
+
+      {activeImage ? (
+        <Lightbox
+          src={activeImage}
+          alt="Gallery image"
+          onClose={() => setActiveImage(null)}
+        />
+      ) : null}
     </motion.section>
   );
 }

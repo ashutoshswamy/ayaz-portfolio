@@ -145,7 +145,7 @@ export default function About() {
               </div>
               <div className="text-center p-4 rounded-xl bg-[var(--color-secondary)]/50 border border-[var(--color-gold)]/10">
                 <div className="text-2xl sm:text-3xl font-bold text-[var(--color-gold)]">
-                  500+
+                  5000+
                 </div>
                 <div className="text-xs sm:text-sm text-[var(--text-muted)] uppercase tracking-wider">
                   Shows
@@ -153,7 +153,7 @@ export default function About() {
               </div>
               <div className="text-center p-4 rounded-xl bg-[var(--color-secondary)]/50 border border-[var(--color-gold)]/10">
                 <div className="text-2xl sm:text-3xl font-bold text-[var(--color-gold)]">
-                  5+
+                  50+
                 </div>
                 <div className="text-xs sm:text-sm text-[var(--text-muted)] uppercase tracking-wider">
                   Countries

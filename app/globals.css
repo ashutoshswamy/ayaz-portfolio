@@ -94,6 +94,12 @@ h6 {
   letter-spacing: -0.01em;
 }
 
+/* Scroll offset for fixed header navigation */
+section[id],
+div[id] {
+  scroll-margin-top: 5rem;
+}
+
 .container {
   width: 100%;
   max-width: 1200px;
@@ -306,6 +312,33 @@ html {
 
 .animate-float-note {
   animation: floatNote 4s ease-in-out infinite;
+}
+
+/* Gallery scroll animations */
+@keyframes scrollLeft {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes scrollRight {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.animate-scroll-left {
+  animation: scrollLeft 30s linear infinite;
+}
+
+.animate-scroll-right {
+  animation: scrollRight 30s linear infinite;
 }
 
 /* Sound wave pulse animation */

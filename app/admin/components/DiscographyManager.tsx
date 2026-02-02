@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import { supabase } from '@/lib/supabase';
-import { Trash2, Plus, Loader2, Disc, PlayCircle } from 'lucide-react';
+import { useState, useEffect } from "react";
+import { supabase } from "@/lib/supabase";
+import { Trash2, Plus, Loader2, Disc, PlayCircle } from "lucide-react";
 
 type Work = {
   id: string;
@@ -17,12 +17,12 @@ export default function DiscographyManager() {
   const [works, setWorks] = useState<Work[]>([]);
   const [loading, setLoading] = useState(true);
   const [isAdding, setIsAdding] = useState(false);
-  
+
   // Form State
-  const [title, setTitle] = useState('');
-  const [artists, setArtists] = useState('');
-  const [label, setLabel] = useState('');
-  const [videoUrl, setVideoUrl] = useState('');
+  const [title, setTitle] = useState("");
+  const [artists, setArtists] = useState("");
+  const [label, setLabel] = useState("");
+  const [videoUrl, setVideoUrl] = useState("");
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
@@ -32,140 +32,195 @@ export default function DiscographyManager() {
   const fetchWorks = async () => {
     try {
       const { data, error } = await supabase
-        .from('discography')
-        .select('*')
-        .order('created_at', { ascending: false });
+        .from("discography")
+        .select("*")
+        .order("created_at", { ascending: false });
 
       if (error) throw error;
       setWorks(data || []);
     } catch (error) {
-      console.error('Error fetching works:', error);
+      console.error("Error fetching works:", error);
     } finally {
       setLoading(false);
     }
   };
 
+  const isValidYouTubeUrl = (url: string): boolean => {
+    if (!url) return true; // Empty is allowed
+    try {
+      const parsed = new URL(url);
+      return (
+        parsed.hostname === "www.youtube.com" ||
+        parsed.hostname === "youtube.com" ||
+        parsed.hostname === "youtu.be"
+      );
+    } catch {
+      return false;
+    }
+  };
+
+  const sanitizeInput = (input: string): string => {
+    return input.trim().replace(/<[^>]*>/g, "");
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Validate YouTube URL
+    if (videoUrl && !isValidYouTubeUrl(videoUrl)) {
+      alert("Please enter a valid YouTube URL");
+      return;
+    }
+
     setSubmitting(true);
-    
+
     try {
-        const { error } = await supabase
-            .from('discography')
-            .insert([{ title, artists, label, video_url: videoUrl }]);
-            
-        if (error) throw error;
-        
-        // Reset form
-        setTitle('');
-        setArtists('');
-        setLabel('');
-        setVideoUrl('');
-        setIsAdding(false);
-        fetchWorks();
+      const { error } = await supabase.from("discography").insert([
+        {
+          title: sanitizeInput(title),
+          artists: sanitizeInput(artists),
+          label: sanitizeInput(label),
+          video_url: videoUrl.trim(),
+        },
+      ]);
+
+      if (error) throw error;
+
+      // Reset form
+      setTitle("");
+      setArtists("");
+      setLabel("");
+      setVideoUrl("");
+      setIsAdding(false);
+      fetchWorks();
     } catch (error) {
-        console.error('Error adding work:', error);
-        alert('Error adding work');
+      console.error("Error adding work:", error);
+      alert("Error adding work");
     } finally {
-        setSubmitting(false);
+      setSubmitting(false);
     }
   };
 
   const handleDelete = async (id: string) => {
-    if (!confirm('Are you sure you want to delete this work?')) return;
+    if (!confirm("Are you sure you want to delete this work?")) return;
 
     try {
       const { error } = await supabase
-        .from('discography')
+        .from("discography")
         .delete()
-        .eq('id', id);
+        .eq("id", id);
 
       if (error) throw error;
 
       setWorks(works.filter((work) => work.id !== id));
     } catch (error) {
-      console.error('Error deleting work:', error);
-      alert('Error deleting work');
+      console.error("Error deleting work:", error);
+      alert("Error deleting work");
     }
   };
 
   if (loading) {
     return (
-        <div className="flex justify-center p-8">
-            <Loader2 className="h-8 w-8 animate-spin text-[var(--color-gold)]" />
-        </div>
-    )
+      <div className="flex justify-center p-8">
+        <Loader2 className="h-8 w-8 animate-spin text-[var(--color-gold)]" />
+      </div>
+    );
   }
 
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h3 className="text-lg font-medium leading-6 text-[var(--text-light)]">Discography</h3>
+        <h3 className="text-lg font-medium leading-6 text-[var(--text-light)]">
+          Discography
+        </h3>
         <button
-            onClick={() => setIsAdding(!isAdding)}
-            type="button"
-            className="inline-flex items-center gap-x-2 rounded-md bg-[var(--color-gold)] px-3.5 py-2.5 text-sm font-semibold text-[var(--color-primary)] shadow-sm hover:bg-[var(--color-gold-dark)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-gold)]"
+          onClick={() => setIsAdding(!isAdding)}
+          type="button"
+          className="inline-flex items-center gap-x-2 rounded-md bg-[var(--color-gold)] px-3.5 py-2.5 text-sm font-semibold text-[var(--color-primary)] shadow-sm hover:bg-[var(--color-gold-dark)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-gold)]"
         >
-            <Plus className="-ml-0.5 h-5 w-5" aria-hidden="true" />
-            {isAdding ? 'Cancel' : 'Add Work'}
+          <Plus className="-ml-0.5 h-5 w-5" aria-hidden="true" />
+          {isAdding ? "Cancel" : "Add Work"}
         </button>
       </div>
 
       {isAdding && (
-          <form onSubmit={handleSubmit} className="bg-[var(--color-secondary)] p-6 rounded-lg shadow-sm border border-[var(--color-gold)]/15 space-y-4">
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                  <div>
-                      <label htmlFor="title" className="block text-sm font-medium leading-6 text-[var(--text-light)]">Title</label>
-                      <input
-                        type="text"
-                        id="title"
-                        required
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
-                        className="mt-1 block w-full rounded-md border-0 py-1.5 bg-[var(--color-tertiary)] text-[var(--text-light)] shadow-sm ring-1 ring-inset ring-[var(--color-gold)]/20 placeholder:text-[var(--text-muted)] focus:ring-2 focus:ring-inset focus:ring-[var(--color-gold)] sm:text-sm sm:leading-6 pl-3"
-                      />
-                  </div>
-                  <div>
-                      <label htmlFor="artists" className="block text-sm font-medium leading-6 text-[var(--text-light)]">Artists</label>
-                      <input
-                        type="text"
-                        id="artists"
-                        value={artists}
-                        onChange={(e) => setArtists(e.target.value)}
-                        className="mt-1 block w-full rounded-md border-0 py-1.5 bg-[var(--color-tertiary)] text-[var(--text-light)] shadow-sm ring-1 ring-inset ring-[var(--color-gold)]/20 placeholder:text-[var(--text-muted)] focus:ring-2 focus:ring-inset focus:ring-[var(--color-gold)] sm:text-sm sm:leading-6 pl-3"
-                      />
-                  </div>
-                  <div>
-                      <label htmlFor="label" className="block text-sm font-medium leading-6 text-[var(--text-light)]">Label</label>
-                      <input
-                        type="text"
-                        id="label"
-                        value={label}
-                        onChange={(e) => setLabel(e.target.value)}
-                        className="mt-1 block w-full rounded-md border-0 py-1.5 bg-[var(--color-tertiary)] text-[var(--text-light)] shadow-sm ring-1 ring-inset ring-[var(--color-gold)]/20 placeholder:text-[var(--text-muted)] focus:ring-2 focus:ring-inset focus:ring-[var(--color-gold)] sm:text-sm sm:leading-6 pl-3"
-                      />
-                  </div>
-                  <div>
-                      <label htmlFor="videoUrl" className="block text-sm font-medium leading-6 text-[var(--text-light)]">Video URL (YouTube)</label>
-                      <input
-                        type="url"
-                        id="videoUrl"
-                        value={videoUrl}
-                        onChange={(e) => setVideoUrl(e.target.value)}
-                        className="mt-1 block w-full rounded-md border-0 py-1.5 bg-[var(--color-tertiary)] text-[var(--text-light)] shadow-sm ring-1 ring-inset ring-[var(--color-gold)]/20 placeholder:text-[var(--text-muted)] focus:ring-2 focus:ring-inset focus:ring-[var(--color-gold)] sm:text-sm sm:leading-6 pl-3"
-                      />
-                  </div>
-              </div>
-              <div className="flex justify-end">
-                  <button
-                    type="submit"
-                    disabled={submitting}
-                    className="inline-flex items-center gap-x-2 rounded-md bg-[var(--color-gold)] px-3.5 py-2.5 text-sm font-semibold text-[var(--color-primary)] shadow-sm hover:bg-[var(--color-gold-dark)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-gold)] disabled:opacity-70"
-                  >
-                      {submitting ? 'Saving...' : 'Save Work'}
-                  </button>
-              </div>
-          </form>
+        <form
+          onSubmit={handleSubmit}
+          className="bg-[var(--color-secondary)] p-6 rounded-lg shadow-sm border border-[var(--color-gold)]/15 space-y-4"
+        >
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <div>
+              <label
+                htmlFor="title"
+                className="block text-sm font-medium leading-6 text-[var(--text-light)]"
+              >
+                Title
+              </label>
+              <input
+                type="text"
+                id="title"
+                required
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                className="mt-1 block w-full rounded-md border-0 py-1.5 bg-[var(--color-tertiary)] text-[var(--text-light)] shadow-sm ring-1 ring-inset ring-[var(--color-gold)]/20 placeholder:text-[var(--text-muted)] focus:ring-2 focus:ring-inset focus:ring-[var(--color-gold)] sm:text-sm sm:leading-6 pl-3"
+              />
+            </div>
+            <div>
+              <label
+                htmlFor="artists"
+                className="block text-sm font-medium leading-6 text-[var(--text-light)]"
+              >
+                Artists
+              </label>
+              <input
+                type="text"
+                id="artists"
+                value={artists}
+                onChange={(e) => setArtists(e.target.value)}
+                className="mt-1 block w-full rounded-md border-0 py-1.5 bg-[var(--color-tertiary)] text-[var(--text-light)] shadow-sm ring-1 ring-inset ring-[var(--color-gold)]/20 placeholder:text-[var(--text-muted)] focus:ring-2 focus:ring-inset focus:ring-[var(--color-gold)] sm:text-sm sm:leading-6 pl-3"
+              />
+            </div>
+            <div>
+              <label
+                htmlFor="label"
+                className="block text-sm font-medium leading-6 text-[var(--text-light)]"
+              >
+                Label
+              </label>
+              <input
+                type="text"
+                id="label"
+                value={label}
+                onChange={(e) => setLabel(e.target.value)}
+                className="mt-1 block w-full rounded-md border-0 py-1.5 bg-[var(--color-tertiary)] text-[var(--text-light)] shadow-sm ring-1 ring-inset ring-[var(--color-gold)]/20 placeholder:text-[var(--text-muted)] focus:ring-2 focus:ring-inset focus:ring-[var(--color-gold)] sm:text-sm sm:leading-6 pl-3"
+              />
+            </div>
+            <div>
+              <label
+                htmlFor="videoUrl"
+                className="block text-sm font-medium leading-6 text-[var(--text-light)]"
+              >
+                Video URL (YouTube)
+              </label>
+              <input
+                type="url"
+                id="videoUrl"
+                value={videoUrl}
+                onChange={(e) => setVideoUrl(e.target.value)}
+                className="mt-1 block w-full rounded-md border-0 py-1.5 bg-[var(--color-tertiary)] text-[var(--text-light)] shadow-sm ring-1 ring-inset ring-[var(--color-gold)]/20 placeholder:text-[var(--text-muted)] focus:ring-2 focus:ring-inset focus:ring-[var(--color-gold)] sm:text-sm sm:leading-6 pl-3"
+              />
+            </div>
+          </div>
+          <div className="flex justify-end">
+            <button
+              type="submit"
+              disabled={submitting}
+              className="inline-flex items-center gap-x-2 rounded-md bg-[var(--color-gold)] px-3.5 py-2.5 text-sm font-semibold text-[var(--color-primary)] shadow-sm hover:bg-[var(--color-gold-dark)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-gold)] disabled:opacity-70"
+            >
+              {submitting ? "Saving..." : "Save Work"}
+            </button>
+          </div>
+        </form>
       )}
 
       <div className="overflow-hidden bg-[var(--color-secondary)] shadow sm:rounded-md border border-[var(--color-gold)]/15">
@@ -176,7 +231,10 @@ export default function DiscographyManager() {
                 <div className="min-w-0 flex-1 sm:flex sm:items-center sm:justify-between">
                   <div>
                     <div className="flex text-sm font-medium text-[var(--color-gold)] truncate">
-                      <Disc className="mr-1.5 h-5 w-5 flex-shrink-0 text-[var(--text-muted)]" aria-hidden="true" />
+                      <Disc
+                        className="mr-1.5 h-5 w-5 flex-shrink-0 text-[var(--text-muted)]"
+                        aria-hidden="true"
+                      />
                       {work.title}
                     </div>
                     <div className="mt-2 flex">
@@ -187,21 +245,26 @@ export default function DiscographyManager() {
                   </div>
                   <div className="mt-4 flex-shrink-0 sm:ml-5 sm:mt-0">
                     <div className="flex space-x-4 items-center">
-                        <div className="flex flex-col items-end text-sm text-[var(--text-muted)]">
-                            <span>{work.label}</span>
-                            {work.video_url && (
-                                <a href={work.video_url} target="_blank" rel="noopener noreferrer" className="text-[var(--color-gold)] hover:underline flex items-center mt-1">
-                                    <PlayCircle className="h-4 w-4 mr-1" /> Watch
-                                </a>
-                            )}
-                        </div>
-                        <button
-                            onClick={() => handleDelete(work.id)}
-                            type="button"
-                            className="rounded-full p-1 text-red-600 hover:bg-red-50"
-                        >
-                            <Trash2 className="h-5 w-5" aria-hidden="true" />
-                        </button>
+                      <div className="flex flex-col items-end text-sm text-[var(--text-muted)]">
+                        <span>{work.label}</span>
+                        {work.video_url && (
+                          <a
+                            href={work.video_url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-[var(--color-gold)] hover:underline flex items-center mt-1"
+                          >
+                            <PlayCircle className="h-4 w-4 mr-1" /> Watch
+                          </a>
+                        )}
+                      </div>
+                      <button
+                        onClick={() => handleDelete(work.id)}
+                        type="button"
+                        className="rounded-full p-1 text-red-600 hover:bg-red-50"
+                      >
+                        <Trash2 className="h-5 w-5" aria-hidden="true" />
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -210,11 +273,15 @@ export default function DiscographyManager() {
           ))}
         </ul>
         {works.length === 0 && (
-             <div className="text-center py-12">
-                <Disc className="mx-auto h-12 w-12 text-[var(--text-muted)]" />
-                <h3 className="mt-2 text-sm font-semibold text-[var(--text-light)]">No works found</h3>
-                <p className="mt-1 text-sm text-[var(--text-muted)]">Get started by adding a new discography entry.</p>
-            </div>
+          <div className="text-center py-12">
+            <Disc className="mx-auto h-12 w-12 text-[var(--text-muted)]" />
+            <h3 className="mt-2 text-sm font-semibold text-[var(--text-light)]">
+              No works found
+            </h3>
+            <p className="mt-1 text-sm text-[var(--text-muted)]">
+              Get started by adding a new discography entry.
+            </p>
+          </div>
         )}
       </div>
     </div>
