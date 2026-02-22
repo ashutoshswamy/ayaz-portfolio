@@ -39,66 +39,84 @@ export default function GalleryManager() {
   const handleUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     try {
       setUploading(true);
-      const file = event.target.files?.[0];
-      if (!file) return;
+      const files = Array.from(event.target.files || []);
+      if (files.length === 0) return;
 
-      // Security: Validate file type
-      const allowedTypes = [
-        "image/jpeg",
-        "image/png",
-        "image/webp",
-        "image/gif",
-      ];
-      if (!allowedTypes.includes(file.type)) {
-        alert(
-          "Invalid file type. Please upload a JPEG, PNG, WebP, or GIF image.",
-        );
-        return;
+      const uploadPromises = files.map(async (file) => {
+        // Security: Validate file type
+        const allowedTypes = [
+          "image/jpeg",
+          "image/png",
+          "image/webp",
+          "image/gif",
+        ];
+        if (!allowedTypes.includes(file.type)) {
+          throw new Error(
+            `Invalid file type for ${file.name}. Please upload a JPEG, PNG, WebP, or GIF image.`,
+          );
+        }
+
+        // Security: Validate file size (max 10MB)
+        const maxSize = 10 * 1024 * 1024;
+        if (file.size > maxSize) {
+          throw new Error(
+            `File ${file.name} is too large. Maximum size is 10MB.`,
+          );
+        }
+
+        // Generate secure random filename
+        const fileExt = file.name.split(".").pop()?.toLowerCase();
+        const allowedExtensions = ["jpg", "jpeg", "png", "webp", "gif"];
+        if (!fileExt || !allowedExtensions.includes(fileExt)) {
+          throw new Error(`Invalid file extension for ${file.name}.`);
+        }
+
+        const fileName = `${crypto.randomUUID()}.${fileExt}`;
+        const filePath = `${fileName}`;
+
+        // 1. Upload to Storage
+        const { error: uploadError } = await supabase.storage
+          .from("gallery")
+          .upload(filePath, file);
+
+        if (uploadError) throw uploadError;
+
+        // 2. Get Public URL
+        const {
+          data: { publicUrl },
+        } = supabase.storage.from("gallery").getPublicUrl(filePath);
+
+        // 3. Insert into Database
+        const { error: dbError } = await supabase
+          .from("gallery")
+          .insert([{ url: publicUrl }]);
+
+        if (dbError) throw dbError;
+      });
+
+      const results = await Promise.allSettled(uploadPromises);
+
+      const failedUploads = results.filter(
+        (result) => result.status === "rejected",
+      );
+
+      if (failedUploads.length > 0) {
+        const errorMessages = failedUploads
+          .map(
+            (result) =>
+              (result as PromiseRejectedResult).reason?.message ||
+              "Unknown error",
+          )
+          .join("\n");
+        alert(`Some files failed to upload:\n${errorMessages}`);
       }
-
-      // Security: Validate file size (max 10MB)
-      const maxSize = 10 * 1024 * 1024;
-      if (file.size > maxSize) {
-        alert("File too large. Maximum size is 10MB.");
-        return;
-      }
-
-      // Generate secure random filename
-      const fileExt = file.name.split(".").pop()?.toLowerCase();
-      const allowedExtensions = ["jpg", "jpeg", "png", "webp", "gif"];
-      if (!fileExt || !allowedExtensions.includes(fileExt)) {
-        alert("Invalid file extension.");
-        return;
-      }
-
-      const fileName = `${crypto.randomUUID()}.${fileExt}`;
-      const filePath = `${fileName}`;
-
-      // 1. Upload to Storage
-      const { error: uploadError } = await supabase.storage
-        .from("gallery")
-        .upload(filePath, file);
-
-      if (uploadError) throw uploadError;
-
-      // 2. Get Public URL
-      const {
-        data: { publicUrl },
-      } = supabase.storage.from("gallery").getPublicUrl(filePath);
-
-      // 3. Insert into Database
-      const { error: dbError } = await supabase
-        .from("gallery")
-        .insert([{ url: publicUrl }]);
-
-      if (dbError) throw dbError;
 
       fetchImages();
       // Reset input
       event.target.value = "";
     } catch (error) {
-      console.error("Error uploading image:", error);
-      alert("Error uploading image");
+      console.error("Error processing uploads:", error);
+      alert("An error occurred during upload processing");
     } finally {
       setUploading(false);
     }
@@ -154,6 +172,7 @@ export default function GalleryManager() {
           <input
             type="file"
             accept="image/*"
+            multiple
             onChange={handleUpload}
             disabled={uploading}
             className="absolute inset-0 w-full h-full opacity-0 cursor-pointer disabled:cursor-not-allowed"
@@ -171,7 +190,7 @@ export default function GalleryManager() {
             ) : (
               <Upload className="-ml-0.5 h-5 w-5" aria-hidden="true" />
             )}
-            Upload Image
+            {uploading ? "Uploading..." : "Upload Images"}
           </button>
         </div>
       </div>
