@@ -129,7 +129,7 @@ export default function Gallery({
                 >
                   <Image
                     src={image.url}
-                    alt={`Gallery image ${index + 1}`}
+                    alt={`Mohmmad Ayaz Shaikh performance gallery ${index + 1}`}
                     fill
                     sizes="320px"
                     className="object-cover transition duration-500 group-hover:scale-110"
@@ -160,7 +160,7 @@ export default function Gallery({
                 >
                   <Image
                     src={image.url}
-                    alt={`Gallery image ${index + 1}`}
+                    alt={`Mohmmad Ayaz Shaikh performance gallery ${index + 1}`}
                     fill
                     sizes="320px"
                     className="object-cover transition duration-500 group-hover:scale-110"
@@ -176,7 +176,7 @@ export default function Gallery({
       {activeImage ? (
         <Lightbox
           src={activeImage}
-          alt="Gallery image"
+          alt="Mohmmad Ayaz Shaikh gallery image"
           onClose={() => setActiveImage(null)}
         />
       ) : null}

@@ -40,6 +40,8 @@ export const metadata: Metadata = {
     "Mohammed Ayaz",
     "Mohammed Ayaz singer",
     "Mohammad Ayaz Shaikh",
+    "Mohmmad Ayaz",
+    "Mohmmad Ayaz Shaikh",
     // Music-related keywords
     "Playback Singer India",
     "Music Director",
@@ -152,7 +154,7 @@ export default function RootLayout({
         "@type": ["Person", "MusicArtist"],
         "@id": `${siteUrl}/#person`,
         name: "Mohammad Ayaz",
-        alternateName: ["Mohd Ayaz", "Mohammed Ayaz", "Mohammad Ayaz Shaikh"],
+        alternateName: ["Mohd Ayaz", "Mohammed Ayaz", "Mohammad Ayaz Shaikh", "Mohmmad Ayaz", "Mohmmad Ayaz Shaikh"],
         url: siteUrl,
         image: {
           "@type": "ImageObject",
@@ -175,11 +177,6 @@ export default function RootLayout({
           "Indian Classical",
         ],
         award: "150+ Awards",
-        performerIn: {
-          "@type": "Event",
-          name: "Live Performances",
-          description: "5000+ live shows across 50+ countries",
-        },
         sameAs: [
           "https://www.instagram.com/mohammadayaz.official/",
           "https://www.youtube.com/@mohdayazofficial1786",

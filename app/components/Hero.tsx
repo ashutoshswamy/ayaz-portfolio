@@ -236,7 +236,7 @@ export default function Hero() {
           <div className="relative w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 lg:w-96 lg:h-96 overflow-hidden rounded-full shadow-2xl ring-4 ring-[var(--color-gold)]/20">
             <Image
               src={imageSrc}
-              alt="Mohammad Ayaz"
+              alt="Mohmmad Ayaz Shaikh - Playback Singer & Music Director"
               fill
               className="object-cover transition-transform duration-700 hover:scale-110"
               sizes="(max-width: 640px) 256px, (max-width: 768px) 288px, (max-width: 1024px) 320px, 384px"

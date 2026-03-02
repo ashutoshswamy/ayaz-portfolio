@@ -70,7 +70,7 @@ export default function About() {
             <div className="relative aspect-[3/4] overflow-hidden rounded-2xl shadow-2xl ring-2 ring-[var(--color-gold)]/20">
               <Image
                 src="/profile/hero-profile.jpg"
-                alt="Mohammad Ayaz - Artist Profile"
+                alt="Mohmmad Ayaz Shaikh - Artist Profile"
                 fill
                 className="object-cover transition-transform duration-700 hover:scale-105"
                 sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 500px"
