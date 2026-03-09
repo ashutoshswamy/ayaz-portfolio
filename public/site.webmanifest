@@ -1,21 +1,29 @@
 {
-  "name": "Mohammad Ayaz - Playback Singer & Music Director",
+  "name": "Mohammad Ayaz - Indian Playback Singer & Music Director",
   "short_name": "Mohammad Ayaz",
-  "description": "Official portfolio of Mohammad Ayaz, a renowned Indian Playback Singer and Music Director.",
+  "description": "Official website of Mohammad Ayaz, renowned Indian Playback Singer & Music Director. Voice of Mohammed Rafi. 5000+ live shows, 150+ awards, 50+ countries.",
   "start_url": "/",
+  "scope": "/",
+  "id": "/",
   "icons": [
     {
       "src": "/android-chrome-192x192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
     },
     {
       "src": "/android-chrome-512x512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ],
   "theme_color": "#0a0f1a",
   "background_color": "#0a0f1a",
-  "display": "standalone"
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "lang": "en-IN",
+  "dir": "ltr",
+  "categories": ["music", "entertainment"]
 }

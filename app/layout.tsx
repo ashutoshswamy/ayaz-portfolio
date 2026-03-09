@@ -16,9 +16,10 @@ const playfair = Playfair_Display({
 });
 
 const siteUrl = "https://mohammadayaz.com";
-const siteName = "Mohammad Ayaz - Playback Singer & Music Director";
+const siteName =
+  "Mohammad Ayaz - Indian Playback Singer & Music Director | Official Website";
 const siteDescription =
-  "Official portfolio of Mohammad Ayaz, a renowned Indian Playback Singer and Music Director. Known as the voice of Mohammed Rafi, with 5000+ live shows, 150+ awards, and performances across 50+ countries. Explore his discography, celebrity collaborations, and upcoming events.";
+  "Mohammad Ayaz is a renowned Indian Playback Singer, Music Director, and the living voice of legendary Mohammed Rafi. With 5000+ live shows across 50+ countries, 150+ prestigious awards including Goa Ratna Puraskar, and collaborations with Usha Mangeshkar, Anuradha Paudwal & more. Book Mohammad Ayaz for live performances, Bollywood music events, and cultural shows.";
 const siteImage = `${siteUrl}/og-image.jpg`;
 
 export const metadata: Metadata = {
@@ -29,11 +30,14 @@ export const metadata: Metadata = {
   },
   description: siteDescription,
   keywords: [
-    // Primary keywords
+    // Primary keywords (exact match targets)
     "Mohammad Ayaz",
     "Mohammad Ayaz singer",
     "Mohammad Ayaz playback singer",
     "Mohammad Ayaz music director",
+    "Mohammad Ayaz official website",
+    "Mohammad Ayaz live show",
+    "Mohammad Ayaz booking",
     // Name variations (common search patterns)
     "Mohd Ayaz",
     "Mohd Ayaz singer",
@@ -42,25 +46,45 @@ export const metadata: Metadata = {
     "Mohammad Ayaz Shaikh",
     "Mohmmad Ayaz",
     "Mohmmad Ayaz Shaikh",
+    "Mohammad Ayaz Shaikh singer",
     // Music-related keywords
     "Playback Singer India",
-    "Music Director",
+    "Music Director India",
     "Bollywood singer",
     "Indian playback singer",
     "Mohammad Ayaz songs",
     "Mohammad Ayaz albums",
+    "Mohammad Ayaz discography",
     "Mohammad Ayaz live performance",
+    "Mohammad Ayaz concert",
+    // Long-tail keywords
+    "best Indian playback singer",
+    "voice of Mohammed Rafi",
+    "Mohammed Rafi tribute singer",
+    "book playback singer for event",
+    "Indian singer for corporate event",
+    "Bollywood singer for wedding",
+    "playback singer Maharashtra",
+    "Solapur singer",
+    "Mumbai playback singer",
     // Descriptive keywords
-    "music composer",
-    "film music",
-    "live performances",
+    "music composer India",
+    "film music director",
+    "live Bollywood performances",
     "Bollywood music director",
     "Indian music industry",
-    "playback recording",
-    "music production",
+    "playback recording artist",
+    "music production India",
     "Mohammed Rafi tribute",
-    "Ghazal singer",
-    "Indian vocalist",
+    "Ghazal singer India",
+    "Indian vocalist Mumbai",
+    "Goa Ratna Puraskar winner",
+    "Voice of Maharashtra winner",
+    // Event-related keywords
+    "hire Indian singer",
+    "book singer for cultural event",
+    "playback singer for hire",
+    "Indian music event performer",
   ],
   authors: [{ name: "Mohammad Ayaz", url: siteUrl }],
   creator: "Mohammad Ayaz",
@@ -125,8 +149,6 @@ export const metadata: Metadata = {
   },
   other: {
     "music:musician": siteUrl,
-    "og:profile:first_name": "Mohammad",
-    "og:profile:last_name": "Ayaz",
   },
 };
 
@@ -154,20 +176,30 @@ export default function RootLayout({
         "@type": ["Person", "MusicArtist"],
         "@id": `${siteUrl}/#person`,
         name: "Mohammad Ayaz",
-        alternateName: ["Mohd Ayaz", "Mohammed Ayaz", "Mohammad Ayaz Shaikh", "Mohmmad Ayaz", "Mohmmad Ayaz Shaikh"],
+        alternateName: [
+          "Mohd Ayaz",
+          "Mohammed Ayaz",
+          "Mohammad Ayaz Shaikh",
+          "Mohmmad Ayaz",
+          "Mohmmad Ayaz Shaikh",
+        ],
         url: siteUrl,
         image: {
           "@type": "ImageObject",
           url: siteImage,
           width: 1200,
           height: 630,
-          caption: "Mohammad Ayaz - Playback Singer & Music Director",
+          caption: "Mohammad Ayaz - Indian Playback Singer & Music Director",
         },
         description: siteDescription,
         jobTitle: ["Playback Singer", "Music Director"],
         nationality: {
           "@type": "Country",
           name: "India",
+        },
+        homeLocation: {
+          "@type": "Place",
+          name: "Mumbai, Maharashtra, India",
         },
         genre: [
           "Playback Singing",
@@ -176,7 +208,15 @@ export default function RootLayout({
           "Film Music",
           "Indian Classical",
         ],
-        award: "150+ Awards",
+        award: [
+          "Goa Ratna Puraskar",
+          "Voice of Maharashtra (Mi Marathi)",
+          "Roxna Saam Gurukul Winner (Saam Marathi)",
+          "Pride of Sri Lanka Award",
+          "Voice of Rafi Award (Delhi Doordarshan)",
+          "Rashtriya Ekatmata Puraskar",
+          "Solapur Bhushan Puraskar",
+        ],
         sameAs: [
           "https://www.instagram.com/mohammadayaz.official/",
           "https://www.youtube.com/@mohdayazofficial1786",
@@ -191,14 +231,47 @@ export default function RootLayout({
           "Music Production",
           "Live Performance",
           "Mohammed Rafi Style",
+          "Ghazal",
         ],
+        hasOccupation: [
+          {
+            "@type": "Occupation",
+            name: "Playback Singer",
+            occupationLocation: {
+              "@type": "Country",
+              name: "India",
+            },
+          },
+          {
+            "@type": "Occupation",
+            name: "Music Director",
+            occupationLocation: {
+              "@type": "Country",
+              name: "India",
+            },
+          },
+        ],
+        performerIn: {
+          "@type": "EventSeries",
+          name: "Mohammad Ayaz Live Shows",
+          description: "Over 5000 live performances across 50+ countries",
+        },
+        contactPoint: {
+          "@type": "ContactPoint",
+          telephone: "+91-95959-91786",
+          email: "md.ayaz7862@gmail.com",
+          contactType: "booking",
+          areaServed: "Worldwide",
+          availableLanguage: ["Hindi", "English", "Marathi", "Urdu"],
+        },
       },
-      // WebSite schema for sitelinks search
+      // WebSite schema with SearchAction for sitelinks search
       {
         "@type": "WebSite",
         "@id": `${siteUrl}/#website`,
         url: siteUrl,
-        name: siteName,
+        name: "Mohammad Ayaz - Official Website",
+        alternateName: "Mohammad Ayaz Portfolio",
         description: siteDescription,
         publisher: {
           "@id": `${siteUrl}/#person`,
@@ -234,19 +307,108 @@ export default function RootLayout({
         mainEntity: {
           "@id": `${siteUrl}/#person`,
         },
-        dateCreated: "2024-01-01",
         dateModified: new Date().toISOString().split("T")[0],
+        inLanguage: "en-IN",
+      },
+      // FAQPage schema for rich results
+      {
+        "@type": "FAQPage",
+        "@id": `${siteUrl}/#faq`,
+        mainEntity: [
+          {
+            "@type": "Question",
+            name: "Who is Mohammad Ayaz?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Mohammad Ayaz is a renowned Indian Playback Singer and Music Director, widely known as the living voice of legendary singer Mohammed Rafi. With over 25 years in the music industry, he has performed 5000+ live shows across 50+ countries and received 150+ prestigious awards including Goa Ratna Puraskar and Voice of Maharashtra.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "How can I book Mohammad Ayaz for a live performance?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "You can book Mohammad Ayaz for live performances, corporate events, weddings, and cultural shows by contacting him at +91 95959 91786 or emailing md.ayaz7862@gmail.com. He is available for events worldwide.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "What awards has Mohammad Ayaz won?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Mohammad Ayaz has won over 150 awards including Goa Ratna Puraskar by the Chief Minister of Goa, Voice of Maharashtra (Mi Marathi), Roxna Saam Gurukul (Saam Marathi), Pride of Sri Lanka Award, Voice of Rafi Award by Delhi Doordarshan, Rashtriya Ekatmata Puraskar, and Solapur Bhushan Puraskar by Gulzar Sahab.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Which celebrities has Mohammad Ayaz collaborated with?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Mohammad Ayaz has collaborated with legendary artists including Usha Mangeshkar, Anuradha Paudwal, Suresh Wadekar, Sadhana Sargam, Raveena Tandon, Johnny Lever, and many more distinguished personalities from the Indian entertainment industry.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Where is Mohammad Ayaz from?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Mohammad Ayaz is from Solapur, Maharashtra, India, and is currently based in Mumbai. He performs internationally across 50+ countries including South Africa, Dubai, Singapore, Malaysia, Bahrain, and many more.",
+            },
+          },
+        ],
+      },
+      // CollectionPage for gallery reference
+      {
+        "@type": "CollectionPage",
+        "@id": `${siteUrl}/gallery`,
+        url: `${siteUrl}/gallery`,
+        name: "Mohammad Ayaz Photo Gallery - Live Performances & Events",
+        description:
+          "Explore stunning photographs from Mohammad Ayaz's live performances, celebrity collaborations, and musical events across the world.",
+        isPartOf: {
+          "@id": `${siteUrl}/#website`,
+        },
       },
     ],
   };
 
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en" dir="ltr" className="scroll-smooth">
       <head>
+        {/* Preconnect to critical third-party origins */}
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link
+          rel="preconnect"
+          href="https://wiepghsujazujpqaaduq.supabase.co"
+        />
+        <link rel="dns-prefetch" href="https://www.youtube-nocookie.com" />
+        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+
+        {/* Favicons & PWA */}
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="icon" href="/icon.svg" type="image/svg+xml" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/site.webmanifest" />
+
+        {/* Geo targeting for India */}
+        <meta name="geo.region" content="IN-MH" />
+        <meta name="geo.placename" content="Mumbai, Maharashtra" />
+        <meta name="geo.position" content="19.076;72.8777" />
+        <meta name="ICBM" content="19.076, 72.8777" />
+
+        {/* Additional SEO meta */}
+        <meta name="rating" content="general" />
+        <meta name="revisit-after" content="7 days" />
+        <meta name="distribution" content="global" />
+        <meta name="language" content="English" />
+        <meta
+          name="subject"
+          content="Mohammad Ayaz - Indian Playback Singer & Music Director"
+        />
+        <meta name="classification" content="Music, Entertainment, Arts" />
+        <meta name="copyright" content="Mohammad Ayaz" />
+
+        {/* Structured data */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -271,4 +433,3 @@ export default function RootLayout({
     </html>
   );
 }
-

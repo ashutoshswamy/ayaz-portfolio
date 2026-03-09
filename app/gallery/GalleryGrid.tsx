@@ -46,16 +46,19 @@ export default function GalleryGrid() {
           <span className="text-xs uppercase tracking-[0.35em] text-[var(--color-gold)] sm:text-sm">
             Gallery
           </span>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl">Full Gallery</h1>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl glow-text">
+            Mohammad Ayaz Photo Gallery
+          </h1>
           <p className="max-w-2xl text-base text-[var(--text-muted)] sm:text-lg">
-            Explore the complete collection of live performances, stage moments,
-            and collaborations.
+            Browse the complete collection of Mohammad Ayaz&apos;s live
+            performances, stage moments, celebrity collaborations, and events
+            across 50+ countries.
           </p>
         </div>
-        
+
         {loading ? (
           <div className="flex justify-center py-20">
-             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[var(--color-gold)]"></div>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[var(--color-gold)]"></div>
           </div>
         ) : (
           <div className="columns-1 gap-4 space-y-4 sm:columns-2 lg:columns-3">
@@ -74,7 +77,7 @@ export default function GalleryGrid() {
                   >
                     <Image
                       src={image.url}
-                      alt={`Gallery image ${index + 1}`}
+                      alt={`Mohammad Ayaz live performance photo ${index + 1}`}
                       width={800}
                       height={600}
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
@@ -89,11 +92,11 @@ export default function GalleryGrid() {
             })}
           </div>
         )}
-        
+
         {activeImage ? (
           <Lightbox
             src={activeImage}
-            alt="Gallery image"
+            alt="Mohammad Ayaz performance photo"
             onClose={() => setActiveImage(null)}
           />
         ) : null}

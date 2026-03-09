@@ -113,7 +113,7 @@ export default function Collaborations() {
                 <div className="relative aspect-[4/5] w-full overflow-hidden">
                   <Image
                     src={person.src}
-                    alt={person.name}
+                    alt={`Mohammad Ayaz with ${person.name} - Celebrity Collaboration`}
                     fill
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                     className="object-cover transition-all duration-500 group-hover:scale-110"
