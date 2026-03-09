@@ -16,8 +16,8 @@ type HeroImage = {
 const notes = ["♪", "♫", "♬", "♩", "♭", "♮"];
 const floatingNotesData = Array.from({ length: 12 }, (_, i) => ({
   id: i,
-  left: `${((i * 37 + 13) % 100)}%`,
-  top: `${((i * 53 + 7) % 100)}%`,
+  left: `${(i * 37 + 13) % 100}%`,
+  top: `${(i * 53 + 7) % 100}%`,
   fontSize: `${(i % 5) * 4 + 14}px`,
   animationDelay: `${(i % 4) * 1.1}s`,
   animationDuration: `${(i % 3) + 4}s`,
