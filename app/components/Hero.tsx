@@ -12,27 +12,38 @@ type HeroImage = {
   url: string;
 };
 
+// Pre-computed floating notes data to avoid impure Math.random() during render
+const notes = ["♪", "♫", "♬", "♩", "♭", "♮"];
+const floatingNotesData = Array.from({ length: 12 }, (_, i) => ({
+  id: i,
+  left: `${((i * 37 + 13) % 100)}%`,
+  top: `${((i * 53 + 7) % 100)}%`,
+  fontSize: `${(i % 5) * 4 + 14}px`,
+  animationDelay: `${(i % 4) * 1.1}s`,
+  animationDuration: `${(i % 3) + 4}s`,
+  note: notes[i % notes.length],
+}));
+
 // Floating music notes component
 const FloatingNotes = () => {
-  const notes = ["♪", "♫", "♬", "♩", "♭", "♮"];
   return (
     <div
       className="absolute inset-0 overflow-hidden pointer-events-none"
       aria-hidden="true"
     >
-      {[...Array(12)].map((_, i) => (
+      {floatingNotesData.map((item) => (
         <span
-          key={i}
+          key={item.id}
           className="absolute text-[var(--color-gold)] opacity-20 animate-float-note"
           style={{
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
-            fontSize: `${Math.random() * 20 + 14}px`,
-            animationDelay: `${Math.random() * 4}s`,
-            animationDuration: `${Math.random() * 3 + 4}s`,
+            left: item.left,
+            top: item.top,
+            fontSize: item.fontSize,
+            animationDelay: item.animationDelay,
+            animationDuration: item.animationDuration,
           }}
         >
-          {notes[Math.floor(Math.random() * notes.length)]}
+          {item.note}
         </span>
       ))}
     </div>

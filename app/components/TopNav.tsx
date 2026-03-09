@@ -45,6 +45,7 @@ export default function TopNav() {
 
   // Close mobile menu on route change
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- intentional: reset UI state on navigation
     setIsOpen(false);
   }, [pathname]);
 

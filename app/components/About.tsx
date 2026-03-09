@@ -119,14 +119,14 @@ export default function About() {
               className="relative mt-4 border-l-4 border-[var(--color-gold)] py-4 pl-6 rounded-r-xl bg-gradient-to-r from-[var(--color-gold)]/5 to-transparent"
             >
               <span className="absolute -top-3 left-4 text-5xl text-[var(--color-gold)]/30 font-serif">
-                "
+                &ldquo;
               </span>
               <p className="text-lg font-medium italic text-[var(--text-light)] sm:text-xl relative z-10">
                 Music is the heritage we share—where every voice becomes a
                 bridge between hearts.
               </p>
               <span className="absolute -bottom-4 right-4 text-5xl text-[var(--color-gold)]/30 font-serif">
-                "
+                &rdquo;
               </span>
             </motion.blockquote>
 
