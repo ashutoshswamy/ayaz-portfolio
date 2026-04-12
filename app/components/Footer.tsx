@@ -61,7 +61,7 @@ export default function Footer() {
               </span>
             </Link>
             <p className="text-sm text-[var(--text-muted)] leading-relaxed">
-              Renowned Indian Playback Singer & Music Director. Known as the
+              Renowned Indian Playback Singer, Composer & Lyricist. Known as the
               voice of Mohammed Rafi with 5000+ live shows across 50+ countries.
             </p>
           </div>
@@ -135,7 +135,7 @@ export default function Footer() {
             reserved.
           </p>
           <p>
-            Indian Playback Singer &bull; Music Director &bull; Available for
+            Indian Playback Singer &bull; Composer &bull; Lyricist &bull; Available for
             Worldwide Events
           </p>
         </div>

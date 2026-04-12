@@ -14,9 +14,9 @@ import TopNav from "./components/TopNav";
 
 export const metadata: Metadata = {
   title:
-    "Mohammad Ayaz - Indian Playback Singer & Music Director | Official Website",
+    "Mohammad Ayaz - Indian Playback Singer, Composer & Lyricist | Official Website",
   description:
-    "Mohammad Ayaz is a renowned Indian Playback Singer & Music Director, known as the voice of Mohammed Rafi. 5000+ live shows, 150+ awards, 50+ countries. Book for events, explore discography, awards & more.",
+    "Mohammad Ayaz is a renowned Indian Playback Singer, Composer & Lyricist, known as the voice of Mohammed Rafi. 5000+ live shows, 150+ awards, 50+ countries. Book for events, explore discography, awards & more.",
   alternates: {
     canonical: "https://mohammadayaz.com",
   },
